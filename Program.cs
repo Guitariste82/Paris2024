@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Paris2024.Data;
+using Stripe;
+using FileService = Paris2024.Shared.FileService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,8 +23,9 @@ builder.Services
 
 builder.Services.AddControllersWithViews();
 
-//builder.Services.AddTransient<IAdminOfferRepository, AdminOfferRepository>();
+builder.Services.AddTransient<IAdminOfferRepository, AdminOfferRepository>();
 builder.Services.AddTransient<IAdminOfferTypeRepository, AdminOfferTypeRepository>();
+builder.Services.AddTransient<IFileService, FileService>();
 
 var app = builder.Build();
 

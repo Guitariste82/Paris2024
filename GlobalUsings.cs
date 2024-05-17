@@ -4,3 +4,4 @@ global using Paris2024.Interfaces;
 global using Paris2024.Repositories;
 global using Paris2024.Dtos.Offer;
 global using Paris2024.Dtos.OfferType;
+global using Paris2024.Shared;

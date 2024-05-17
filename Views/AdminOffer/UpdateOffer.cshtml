@@ -1,0 +1,80 @@
+﻿@model OfferDto
+@{
+
+}
+
+<div class="container">
+
+
+
+    <div class="text-capitalize text-center pb-2">
+        <h1>Menu administrateur</h1>
+    </div>
+
+    <div class="text-center pb-2">
+        <h2> Mettre à jour les offres</h2>
+    </div>
+
+
+    <div style="width:50%">
+
+
+
+        <form asp-action="UpdateOffer" enctype="multipart/form-data">
+
+            <input type="hidden" asp-for="OfferDto_Id" />
+            <input type="hidden" asp-for="OfferDto_ImagePath" />
+
+            <div class="my-2">
+                <label>Type d'offre</label>
+                <select class="form-control" asp-for="OfferDto_OfferTypeId" asp-items="Model.OfferTypeList">
+                    <option value="">Choisir un type d'offre'</option>
+                </select>
+                <span asp-validation-for="OfferDto_OfferTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="my-2">
+                <label>Discipline sportive</label>
+                <input type="text" class="form-control" asp-for="OfferDto_Sport" />
+                <span asp-validation-for="OfferDto_Sport" class="text-danger"></span>
+            </div>
+
+            <div class="my-2">
+                <label>Code Offre</label>
+                <input type="text" class="form-control" asp-for="OfferDto_OfferCode" />
+                <span asp-validation-for="OfferDto_OfferCode" class="text-danger"></span>
+            </div>
+
+            <div class="my-2">
+                <label>Description</label>
+                <input type="text" class="form-control" asp-for="OfferDto_Description" />
+                <span asp-validation-for="OfferDto_Description" class="text-danger"></span>
+            </div>
+
+
+            <div class="my-2">
+                <label>Prix</label>
+                <input type="number" class="form-control" asp-for="OfferDto_UnitPrice" />
+                <span asp-validation-for="OfferDto_UnitPrice" class="text-danger"></span>
+            </div>
+
+            <div class="my-2">
+                <label>Logo</label>
+                @if (!string.IsNullOrEmpty(Model.OfferDto_ImagePath))
+                {
+                    <img src="/images/@Model.OfferDto_ImagePath" style="width:100px;height:80px" />
+                }
+                <input type="file" class="form-control" asp-for="OfferDto_ImageFile" />
+            </div>
+
+            <div class="my-2 pt-4">
+                <button type="submit" class="btn btn-primary">Mettre à jour</button>
+            </div>
+
+
+        </form>
+        <div>
+            <a asp-action="Index" asp-controller="AdminOffer" class="btn btn-link">Retour administration des offres</a>
+        </div>
+    </div>
+</div>

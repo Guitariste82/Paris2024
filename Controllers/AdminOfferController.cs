@@ -2,163 +2,234 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Paris2024.Data;
 using Paris2024.Models;
+using Stripe;
 
-namespace Paris2024.Controllers
+namespace Paris2024.Controllers;
+
+[Authorize(Roles = nameof(Roles.Admin))]
+public class AdminOfferController : Controller
 {
-    public class AdminOfferController : Controller
+    private readonly IAdminOfferRepository _offerRepo;
+    private readonly IAdminOfferTypeRepository _categoryRepo;
+    private readonly IFileService _fileService;
+
+    public AdminOfferController(IAdminOfferRepository offerRepo, IAdminOfferTypeRepository categoryRepo, IFileService fileService)
     {
-        private readonly ApplicationDbContext _context;
+        _offerRepo = offerRepo;
+        _categoryRepo = categoryRepo;
+        _fileService = fileService;
+    }
 
-        public AdminOfferController(ApplicationDbContext context)
+    public async Task<IActionResult> Index()
+    {
+        var offers = await _offerRepo.GetOfferks();
+        return View(offers);
+    }
+
+    public async Task<IActionResult> AddOffer()
+    {
+        var categorySelectList = (await _categoryRepo.GetOfferTypes()).Select(category => new SelectListItem
         {
-            _context = context;
-        }
+            Text = category.OfferType_Name,
+            Value = category.OfferTypeId.ToString(),
+        });
 
-        // GET: AdminOffer
-        public async Task<IActionResult> Index()
+        OfferDto offerToAdd = new()
         {
-            var applicationDbContext = _context.Offers.Include(o => o.OfferType);
-            return View(await applicationDbContext.ToListAsync());
-        }
+            OfferTypeList = categorySelectList
+        };
+        return View(offerToAdd);
+    }
 
-        // GET: AdminOffer/Details/5
-        public async Task<IActionResult> Details(int? id)
+    [HttpPost]
+    public async Task<IActionResult> AddOffer(OfferDto offerToAdd)
+    {
+        var categorySelectList = (await _categoryRepo.GetOfferTypes()).Select(category => new SelectListItem
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            Text = category.OfferType_Name,
+            Value = category.OfferTypeId.ToString(),
+        });
 
-            var offer = await _context.Offers
-                .Include(o => o.OfferType)
-                .FirstOrDefaultAsync(m => m.OfferId == id);
-            if (offer == null)
-            {
-                return NotFound();
-            }
+        offerToAdd.OfferTypeList = categorySelectList;
 
-            return View(offer);
-        }
+        if (!ModelState.IsValid)
+            return View(offerToAdd);
 
-        // GET: AdminOffer/Create
-        public IActionResult Create()
+        try
         {
-            ViewData["OfferTypeId"] = new SelectList(_context.OfferTypes, "OfferTypeId", "OfferType_Name");
-            return View();
-        }
-
-        // POST: AdminOffer/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OfferId,Offer_Code,Offer_Sport,Offer_Description,Offer_ImagePath,Offer_UnitPrice,OfferTypeId")] Offer offer)
-        {
-            if (ModelState.IsValid)
+            if (offerToAdd.OfferDto_ImageFile != null)
             {
-                _context.Add(offer);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["OfferTypeId"] = new SelectList(_context.OfferTypes, "OfferTypeId", "OfferType_Name", offer.OfferTypeId);
-            return View(offer);
-        }
-
-        // GET: AdminOffer/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var offer = await _context.Offers.FindAsync(id);
-            if (offer == null)
-            {
-                return NotFound();
-            }
-            ViewData["OfferTypeId"] = new SelectList(_context.OfferTypes, "OfferTypeId", "OfferType_Name", offer.OfferTypeId);
-            return View(offer);
-        }
-
-        // POST: AdminOffer/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OfferId,Offer_Code,Offer_Sport,Offer_Description,Offer_ImagePath,Offer_UnitPrice,OfferTypeId")] Offer offer)
-        {
-            if (id != offer.OfferId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                if (offerToAdd.OfferDto_ImageFile.Length > 1 * 512 * 512)
                 {
-                    _context.Update(offer);
-                    await _context.SaveChangesAsync();
+                    throw new InvalidOperationException("La taille du logo ne peut pas exceder 512 ko");
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OfferExists(offer.OfferId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                string[] allowedExtensions = [".jpeg", ".jpg", ".png"];
+                string imageName = await _fileService.SaveFile(offerToAdd.OfferDto_ImageFile, allowedExtensions);
+                offerToAdd.OfferDto_ImagePath = imageName;
             }
-            ViewData["OfferTypeId"] = new SelectList(_context.OfferTypes, "OfferTypeId", "OfferType_Name", offer.OfferTypeId);
-            return View(offer);
+            // manual mapping of OfferDTO -> Offer
+            Offer offer = new()
+            {
+                OfferId = offerToAdd.OfferDto_Id,
+                Offer_Code = offerToAdd.OfferDto_OfferCode,
+                Offer_Sport = offerToAdd.OfferDto_Sport,
+                Offer_Description = offerToAdd.OfferDto_Description,
+                Offer_ImagePath = offerToAdd.OfferDto_ImagePath,
+                OfferTypeId = offerToAdd.OfferDto_OfferTypeId,
+                Offer_UnitPrice = offerToAdd.OfferDto_UnitPrice
+            };
+            await _offerRepo.AddOffer(offer);
+            TempData["successMessage"] = "Offre ajoutée avec succès";
+            return RedirectToAction(nameof(AddOffer));
         }
-
-        // GET: AdminOffer/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        //catch (InvalidOperationException ex)
+        //{
+        //    TempData["errorMessage"]= ex.Message;
+        //    return View(offerToAdd);
+        //}
+        //catch (FileNotFoundException ex)
+        //{
+        //    TempData["errorMessage"] = ex.Message;
+        //    return View(offerToAdd);
+        //}
+        catch (Exception ex)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var offer = await _context.Offers
-                .Include(o => o.OfferType)
-                .FirstOrDefaultAsync(m => m.OfferId == id);
-            if (offer == null)
-            {
-                return NotFound();
-            }
-
-            return View(offer);
+            TempData["errorMessage"] = "Erreur durant sauvegarde offre";
+            return View(offerToAdd);
         }
+    }
 
-        // POST: AdminOffer/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+    public async Task<IActionResult> UpdateOffer(int id)
+    {
+        var offer = await _offerRepo.GetOfferById(id);
+        if (offer == null)
         {
-            var offer = await _context.Offers.FindAsync(id);
-            if (offer != null)
-            {
-                _context.Offers.Remove(offer);
-            }
-
-            await _context.SaveChangesAsync();
+            TempData["errorMessage"] = $"L'offre avec l'id: {id} non trouvé";
             return RedirectToAction(nameof(Index));
         }
-
-        private bool OfferExists(int id)
+        var categorySelectList = (await _categoryRepo.GetOfferTypes()).Select(category => new SelectListItem
         {
-            return _context.Offers.Any(e => e.OfferId == id);
+            Text = category.OfferType_Name,
+            Value = category.OfferTypeId.ToString(),
+            Selected = category.OfferTypeId == offer.OfferId
+        });
+        OfferDto offerToUpdate = new()
+        {
+            OfferTypeList = categorySelectList,
+            OfferDto_OfferCode = offer.Offer_Code,
+            OfferDto_Sport = offer.Offer_Sport,
+            OfferDto_Description = offer.Offer_Description,
+            OfferDto_OfferTypeId = offer.OfferId,
+            OfferDto_UnitPrice = offer.Offer_UnitPrice,
+            OfferDto_ImagePath = offer.Offer_ImagePath
+        };
+        return View(offerToUpdate);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateOffer(OfferDto offerToUpdate)
+    {
+        var categorySelectList = (await _categoryRepo.GetOfferTypes()).Select(category => new SelectListItem
+        {
+            Text = category.OfferType_Name,
+            Value = category.OfferTypeId.ToString(),
+            Selected = category.OfferTypeId == offerToUpdate.OfferDto_OfferTypeId
+        });
+        offerToUpdate.OfferTypeList = categorySelectList;
+
+        if (!ModelState.IsValid)
+            return View(offerToUpdate);
+
+        try
+        {
+            string oldImage = "";
+            if (offerToUpdate.OfferDto_ImageFile != null)
+            {
+                if (offerToUpdate.OfferDto_ImageFile.Length > 1 * 512 * 512)
+                {
+                    throw new InvalidOperationException("La taille du logo ne peut pas exceder 512 ko");
+                }
+                string[] allowedExtensions = [".jpeg", ".jpg", ".png"];
+
+                string imageName = await _fileService.SaveFile(offerToUpdate.OfferDto_ImageFile, allowedExtensions);
+                // hold the old image name. Because we will delete this image after updating the new
+                oldImage = offerToUpdate.OfferDto_ImagePath;
+                offerToUpdate.OfferDto_ImagePath = imageName;
+            }
+            // manual mapping of offerDTO -> Offer
+            Offer offer = new()
+            {
+                OfferId = offerToUpdate.OfferDto_Id,
+                Offer_Code = offerToUpdate.OfferDto_OfferCode,
+                Offer_Sport = offerToUpdate.OfferDto_Sport,
+                Offer_Description = offerToUpdate.OfferDto_Description,
+                OfferTypeId = offerToUpdate.OfferDto_OfferTypeId,
+                Offer_UnitPrice = offerToUpdate.OfferDto_UnitPrice,
+                Offer_ImagePath = offerToUpdate.OfferDto_ImagePath
+            };
+
+            await _offerRepo.UpdateOffer(offer);
+            // if image is updated, then delete it from the folder too
+            if (!string.IsNullOrWhiteSpace(oldImage))
+            {
+                _fileService.DeleteFile(oldImage);
+            }
+            TempData["successMessage"] = "Offre mise à jour avec succès";
+            return RedirectToAction(nameof(Index));
         }
+        //catch (InvalidOperationException ex)
+        //{
+        //    TempData["errorMessage"] = ex.Message;
+        //    return View(offerToUpdate);
+        //}
+        //catch (FileNotFoundException ex)
+        //{
+        //    TempData["errorMessage"] = ex.Message;
+        //    return View(offerToUpdate);
+        //}
+        catch (Exception ex)
+        {
+            TempData["errorMessage"] = "Erreur durant sauvegarde offre";
+            return View(offerToUpdate);
+        }
+    }
+
+    public async Task<IActionResult> DeleteOffer(int id)
+    {
+        try
+        {
+            var offer = await _offerRepo.GetOfferById(id);
+            if (offer == null)
+            {
+                TempData["errorMessage"] = $"L'offre avec l'id: {id} non trouvé";
+            }
+            else
+            {
+                await _offerRepo.DeleteOffer(offer);
+                if (!string.IsNullOrWhiteSpace(offer.Offer_ImagePath))
+                {
+                    _fileService.DeleteFile(offer.Offer_ImagePath);
+                }
+            }
+        }
+        //catch (InvalidOperationException ex)
+        //{
+        //    TempData["errorMessage"] = ex.Message;
+        //}
+        //catch (FileNotFoundException ex)
+        //{
+        //    TempData["errorMessage"] = ex.Message;
+        //}
+        catch (Exception ex)
+        {
+            TempData["errorMessage"] = "Erreur durant l'effacement de l'offre";
+        }
+        return RedirectToAction(nameof(Index));
     }
 }
