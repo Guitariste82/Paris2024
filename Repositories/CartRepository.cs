@@ -96,12 +96,13 @@ public class CartRepository : ICartRepository
     {
         //using var transaction = _context.Database.BeginTransaction();
         string userId = GetUserId();
+        string cookieId = GetSessionId();
         try
         {
             if (string.IsNullOrEmpty(userId))
                 throw new UnauthorizedAccessException("user is not logged-in");
 
-            var cart = await GetCart(userId);
+            var cart = await GetCart(cookieId);
             if (cart is null)
                 throw new InvalidOperationException("Invalid cart");
             // cart detail section
@@ -119,7 +120,7 @@ public class CartRepository : ICartRepository
         {
 
         }
-        var cartItemCount = await GetCartItemCount(userId);
+        var cartItemCount = await GetCartItemCount(cookieId);
         return cartItemCount;
     }
 

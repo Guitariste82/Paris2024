@@ -1,0 +1,63 @@
+﻿@model Paris2024.Models.ViewModels.Ticket
+
+@{
+    ViewData["Title"] = "Votre eTicket";
+}
+
+<h1>Détails de votre eTicket</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetail.Offer.Offer_Sport)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetail.Offer.Offer_Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetail.Offer.Offer_Description)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDetail.OrderItem_UnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.OrderDetail.Offer.Offer_Sport)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.OrderDetail.Offer.Offer_Code)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.OrderDetail.Offer.Offer_Description)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.OrderDetail.OrderItem_UnitPrice)
+            </td>
+            <td>
+        </tr>
+
+    </tbody>
+</table>
+
+
+@if (!string.IsNullOrEmpty(Model.QRCodeModel.QRImageURL))
+{
+    <div class="row mt-2" id="qrCodeImage">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+
+            <img height="200" width="200" src="@Model.QRCodeModel.QRImageURL" />
+            @*   <a href="@Model.QRCodeModel.QRImageURL" download="@Model.Sale.Offer.Description.Replace(' ', '_')" +".png">Télécharger le QRCode</a> *@
+            <a href="@Model.QRCodeModel.QRImageURL" download="toto.png">Télécharger mon QRCode</a>
+        </div>
+    </div>
+}
+
+<a asp-action="UserOrders">Retour sur liste de mes commandes</a>

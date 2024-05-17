@@ -40,6 +40,7 @@
                             <td>@item.Offer.Offer_UnitPrice X @item.OrderItem_Quantity</td>
                             <td> @(item.Offer.Offer_UnitPrice * item.OrderItem_Quantity) </td>
                             <td><a asp-action="GetTicket" asp-route-TicketID="@item.OrderItem_QrCode">Voir mon billet</a></td>
+                           @*  <td><a asp-action="GetTicket" asp-route-TicketID="@item.OrderItem_QrCode">Voir mon billet</a></td> *@
                         </tr>
                     }
                 </table>
