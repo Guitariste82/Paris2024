@@ -21,6 +21,9 @@ builder.Services
 
 builder.Services.AddControllersWithViews();
 
+//builder.Services.AddTransient<IAdminOfferRepository, AdminOfferRepository>();
+builder.Services.AddTransient<IAdminOfferTypeRepository, AdminOfferTypeRepository>();
+
 var app = builder.Build();
 
 // Fh - Seed Roles ans Admin profile

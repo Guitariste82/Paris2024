@@ -1,0 +1,25 @@
+﻿@{
+    @model OfferType
+
+}
+
+<div class="text-capitalize text-center pb-2">
+    <h1>Menu administrateur</h1>
+</div>
+<div class="text-center pb-2">
+    <h2> Suppression type d'offre </h2>
+</div>
+
+<div class="mt-5">
+    <h5>Souhaitez vous supprimer le type d'offre @Model.OfferType_Name ? </h5>
+
+</div>
+
+<form asp-action="DeleteOfferType" asp-route-id="@Model.OfferTypeId">
+    @* <input type="hidden" asp-for="Id" /> *@
+
+    <div class="my-2 mt-3">
+        <button type="submit" class="btn btn-danger">Oui</button>
+        <a asp-action="Index" asp-controller="AdminOfferType" class="btn btn-primary">Non</a>
+    </div>
+</form>

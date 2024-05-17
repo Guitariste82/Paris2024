@@ -1,0 +1,42 @@
+﻿@model OfferTypeDto
+@{
+
+}
+@* @Html.ValidationSummary() *@
+
+<div class="text-capitalize text-center pb-2">
+    <h1>Menu administrateur</h1>
+</div>
+<div class="text-center pb-2">
+    <h2> Ajouter type d'offre </h2>
+</div>
+
+
+
+<div style="width:50%">
+
+
+    <form asp-action="AddOfferType">
+        @* <input type="hidden" asp-for="Id" /> *@
+
+        <div class="my-2">
+            <label>Type d'offre</label>
+            <input type="text" class="form-control" asp-for="OfferTypeDto_Name" />
+            <span asp-validation-for="OfferTypeDto_Name" class="text-danger"></span>
+        </div>
+        <div class="my-2">
+            <label>Nb personnes</label>
+            <input type="number" class="form-control" asp-for="OfferTypeDto_AllowedPerson" />
+            <span asp-validation-for="OfferTypeDto_AllowedPerson" class="text-danger"></span>
+        </div>
+
+        <div class="my-2 pt-2">
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </div>
+    </form>
+
+    <a asp-action="Index" asp-controller="AdminOfferType" class="btn btn-link">Retour</a>
+
+
+
+</div>

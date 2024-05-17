@@ -1,157 +1,118 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Paris2024.Data;
-using Paris2024.Models;
 
-namespace Paris2024.Controllers
-{
+
+namespace Paris2024.Controllers;
+
+
+    [Authorize(Roles = nameof(Roles.Admin))]
     public class AdminOfferTypeController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IAdminOfferTypeRepository _offerTypeRepo;
 
-        public AdminOfferTypeController(ApplicationDbContext context)
+        public AdminOfferTypeController(IAdminOfferTypeRepository offerTypeRepo)
         {
-            _context = context;
+            _offerTypeRepo = offerTypeRepo;
         }
 
-        // GET: AdminOfferType
         public async Task<IActionResult> Index()
         {
-            return View(await _context.OfferTypes.ToListAsync());
+            var offerTypes = await _offerTypeRepo.GetOfferTypes();
+            return View(offerTypes);
         }
 
-        // GET: AdminOfferType/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var offerType = await _context.OfferTypes
-                .FirstOrDefaultAsync(m => m.OfferTypeId == id);
-            if (offerType == null)
-            {
-                return NotFound();
-            }
-
-            return View(offerType);
-        }
-
-        // GET: AdminOfferType/Create
-        public IActionResult Create()
+        public IActionResult AddOfferType()
         {
             return View();
         }
 
-        // POST: AdminOfferType/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OfferTypeId,OfferType_Name,OfferType_AllowedPerson")] OfferType offerType)
+        public async Task<IActionResult> AddOfferType(OfferTypeDto offerType)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(offerType);
-                await _context.SaveChangesAsync();
+                return View(offerType);
+            }
+            try
+            {
+                var categoryToAdd = new OfferType
+                {
+                    OfferTypeId = offerType.OfferTypeDto_Id,
+                    OfferType_Name = offerType.OfferTypeDto_Name,
+                    OfferType_AllowedPerson = offerType.OfferTypeDto_AllowedPerson
+                };
+
+                await _offerTypeRepo.AddOfferType(categoryToAdd);
+                TempData["successMessage"] = "Type d'offre ajouter avec succès";
+                return RedirectToAction(nameof(AddOfferType));
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = "Type d'offre non ajoutée";
+                return View(offerType);
+            }
+        }
+
+        public async Task<IActionResult> UpdateOfferType(int id)
+        {
+            var offerType = await _offerTypeRepo.GetOfferTypeById(id);
+            if (offerType is null)
+                throw new InvalidOperationException($"Ce type d'offre : {id} n'a pas été trouvé");
+
+            var categoryToUpdate = new OfferTypeDto
+            {
+                OfferTypeDto_Id = offerType.OfferTypeId,
+                OfferTypeDto_Name = offerType.OfferType_Name,
+                OfferTypeDto_AllowedPerson = offerType.OfferType_AllowedPerson
+            };
+            return View(categoryToUpdate);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateOfferType(OfferTypeDto offerTypeToUpdate)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(offerTypeToUpdate);
+            }
+            try
+            {
+                var offerType = new OfferType
+                {
+                    OfferTypeId = offerTypeToUpdate.OfferTypeDto_Id,
+                    OfferType_Name = offerTypeToUpdate.OfferTypeDto_Name,
+                    OfferType_AllowedPerson = offerTypeToUpdate.OfferTypeDto_AllowedPerson
+                };
+
+                await _offerTypeRepo.UpdateOfferType(offerType);
+                TempData["successMessage"] = "Type d'offre mise à jour";
                 return RedirectToAction(nameof(Index));
             }
-            return View(offerType);
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = "Type d'offre non mise à jour";
+                return View(offerTypeToUpdate);
+            }
         }
 
-        // GET: AdminOfferType/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> DeleteOfferTypeConfirmation(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var offerType = await _context.OfferTypes.FindAsync(id);
-            if (offerType == null)
-            {
-                return NotFound();
-            }
+            var offerType = await _offerTypeRepo.GetOfferTypeById(id);
+            if (offerType is null)
+                throw new InvalidOperationException($"Ce type d'offre : {id} n'a pas été trouvé");
             return View(offerType);
+
         }
-
-        // POST: AdminOfferType/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OfferTypeId,OfferType_Name,OfferType_AllowedPerson")] OfferType offerType)
+        public async Task<IActionResult> DeleteOfferType(int id)
         {
-            if (id != offerType.OfferTypeId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(offerType);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OfferTypeExists(offerType.OfferTypeId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(offerType);
-        }
-
-        // GET: AdminOfferType/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var offerType = await _context.OfferTypes
-                .FirstOrDefaultAsync(m => m.OfferTypeId == id);
-            if (offerType == null)
-            {
-                return NotFound();
-            }
-
-            return View(offerType);
-        }
-
-        // POST: AdminOfferType/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var offerType = await _context.OfferTypes.FindAsync(id);
-            if (offerType != null)
-            {
-                _context.OfferTypes.Remove(offerType);
-            }
-
-            await _context.SaveChangesAsync();
+            var offerType = await _offerTypeRepo.GetOfferTypeById(id);
+            if (offerType is null)
+                throw new InvalidOperationException($"Ce type d'offre : {id} n'a pas été trouvé");
+            await _offerTypeRepo.DeleteOfferType(offerType);
             return RedirectToAction(nameof(Index));
+
         }
 
-        private bool OfferTypeExists(int id)
-        {
-            return _context.OfferTypes.Any(e => e.OfferTypeId == id);
-        }
     }
-}

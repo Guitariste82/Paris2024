@@ -1,41 +1,45 @@
-﻿@model IEnumerable<Paris2024.Models.OfferType>
-
+﻿@model IEnumerable<OfferType>
 @{
-    ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="text-capitalize text-center pb-2">
+    <h1>Menu administrateur</h1>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<div class="text-center pb-2">
+    <h2>Gestion type offres</h2>
+</div>
+
+<div class="pt-2 pb-2">
+    <a asp-action="AddOfferType" asp-controller="AdminOfferType" class="btn btn-primary">
+        Ajouter un type d'offre
+    </a>
+</div>
+
+
+
+
+<table class="table table-striped my-2">
+    <tr>
+        <th>Type d'offre</th>
+        <th>Nb personnes</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var category in Model)
+    {
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.OfferType_Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OfferType_AllowedPerson)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
+            <td>@category.OfferType_Name</td>
+            <td>@category.OfferType_AllowedPerson</td>
             <td>
-                @Html.DisplayFor(modelItem => item.OfferType_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OfferType_AllowedPerson)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OfferTypeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OfferTypeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OfferTypeId">Delete</a>
+                <a asp-action="UpdateOfferType" asp-controller="AdminOfferType" asp-route-id="@category.OfferTypeId" class="btn btn-success">Editer</a>
+                <a asp-action="DeleteOfferTypeConfirmation" asp-controller="AdminOfferType" asp-route-id="@category.OfferTypeId" class="btn btn-danger">Supprimer</a>
             </td>
         </tr>
-}
-    </tbody>
+    }
 </table>
+
+
+
+
+

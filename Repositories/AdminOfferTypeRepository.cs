@@ -1,30 +1,44 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
+
 namespace Paris2024.Repositories;
 
 public class AdminOfferTypeRepository : IAdminOfferTypeRepository
 {
-    Task IAdminOfferTypeRepository.AddOfferType(OfferType category)
+    private readonly ApplicationDbContext _context;
+
+    public AdminOfferTypeRepository(ApplicationDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
-    Task IAdminOfferTypeRepository.DeleteOfferType(OfferType category)
+    public async Task<OfferType?> GetOfferTypeById(int id)
     {
-        throw new NotImplementedException();
+        return await _context.OfferTypes.FindAsync(id);
     }
 
-    Task<OfferType?> IAdminOfferTypeRepository.GetOfferTypeById(int id)
+    public async Task AddOfferType(OfferType category)
     {
-        throw new NotImplementedException();
+        _context.OfferTypes.Add(category);
+        await _context.SaveChangesAsync();
+    }
+    public async Task UpdateOfferType(OfferType category)
+    {
+        _context.OfferTypes.Update(category);
+        await _context.SaveChangesAsync();
     }
 
-    Task<IEnumerable<OfferType>> IAdminOfferTypeRepository.GetOfferTypes()
+    public async Task DeleteOfferType(OfferType category)
     {
-        throw new NotImplementedException();
+        _context.OfferTypes.Remove(category);
+        await _context.SaveChangesAsync();
     }
 
-    Task IAdminOfferTypeRepository.UpdateOfferType(OfferType category)
+    public async Task<IEnumerable<OfferType>> GetOfferTypes()
     {
-        throw new NotImplementedException();
+        return await _context.OfferTypes.ToListAsync();
     }
+
 }
+
+
