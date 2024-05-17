@@ -16,6 +16,13 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+    <PackageReference Include="QRCoder" Version="1.5.1" />
+    <PackageReference Include="Stripe.net" Version="44.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Stripe\" />
+    <Folder Include="Models\QrCode\" />
   </ItemGroup>
 
 </Project>
