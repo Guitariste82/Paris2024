@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Stripe\" />
     <Folder Include="Models\QrCode\" />
   </ItemGroup>
 
