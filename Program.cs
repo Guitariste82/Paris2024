@@ -28,6 +28,16 @@ builder.Services.AddTransient<IAdminOfferTypeRepository, AdminOfferTypeRepositor
 builder.Services.AddTransient<IFileService, FileService>();
 
 builder.Services.AddTransient<IOfferRepository, OfferRepository>();
+builder.Services.AddTransient<ICartRepository, CartRepository>();
+
+//fh - add Cookies session to give an Id to cart
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromDays(5);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 
 var app = builder.Build();
 
