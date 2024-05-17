@@ -24,12 +24,18 @@ builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
 // Fh - Seed Roles ans Admin profile
+//using (var scope = app.Services.CreateScope())
+//{
+//    await DbSeederRoles.SeedDefaultData(scope.ServiceProvider);
+//}
+
+// Fh - Seed Models offer and offerType
 using (var scope = app.Services.CreateScope())
 {
-    await DbSeederRoles.SeedDefaultData(scope.ServiceProvider);
+    var services = scope.ServiceProvider;
+    await DbSeederOfferType.SeedOfferTypeData(scope.ServiceProvider);
+    await DbSeederOffer.SeedOfferData(scope.ServiceProvider);
 }
-
-
 
 
 // Configure the HTTP request pipeline.
