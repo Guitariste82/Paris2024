@@ -44,6 +44,12 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
 
+                        @if (User.IsInRole(Roles.User.ToString()))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/UserOrder/UserOrders">Mes commandes</a>
+                            </li>
+                        }
                         @if (User.IsInRole(Roles.Admin.ToString()))
                         {
                             <li class="nav-item dropdown">
