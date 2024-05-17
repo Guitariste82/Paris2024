@@ -27,6 +27,8 @@ builder.Services.AddTransient<IAdminOfferRepository, AdminOfferRepository>();
 builder.Services.AddTransient<IAdminOfferTypeRepository, AdminOfferTypeRepository>();
 builder.Services.AddTransient<IFileService, FileService>();
 
+builder.Services.AddTransient<IOfferRepository, OfferRepository>();
+
 var app = builder.Build();
 
 // Fh - Seed Roles ans Admin profile

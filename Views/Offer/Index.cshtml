@@ -1,65 +1,104 @@
-﻿@model IEnumerable<Paris2024.Models.Offer>
-
+﻿@model OfferVM
 @{
-    ViewData["Title"] = "Index";
+
 }
 
-<h1>Index</h1>
+<div class="text-capitalize text-center pb-2">
+    <h1>Billets en vente</h1>
+</div>
+<div class="pb-2">
+    <h4>Filtres billets</h4>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Offer_Code)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Offer_Sport)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Offer_Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Offer_ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Offer_UnitPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OfferType)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Offer_Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Offer_Sport)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Offer_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Offer_ImagePath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Offer_UnitPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OfferType.OfferType_Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OfferId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OfferId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OfferId">Delete</a>
-            </td>
-        </tr>
+<div class="my-2">
+    <form asp-action="Index" class="row row-cols-lg-auto g-3 align-items-center">
+        <div class="col-12">
+            <label class="visually-hidden" for="categoryId">Categories</label>
+            <select class="form-select" id="offerTypeId" name="offerTypeId">
+                <option selected>All</option>
+                @foreach (var category in Model.OfferTypes)
+                {
+                    <option selected="@(category.OfferTypeId == Model.OfferTypeId)" value="@category.OfferTypeId">@category.OfferType_Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-12">
+            <label class="visually-hidden" for="searchString">Recherche par sport</label>
+            <div class="input-group">
+                <div class="input-group-text"></div>
+                <input type="text" class="form-control" value="@Model.SearchString" id="searchString" name="searchString" placeholder="Recherche par sport">
+            </div>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Recherche</button>
+            <a href="/Offer/Index" class="btn btn-dark">Init</a>
+        </div>
+    </form>
+</div>
+
+
+@foreach (var offer in Model.Offers)
+{
+    <div class="card mb-1 Regular shadow" style="width: 100%;">
+        <div class="row no-gutters">
+
+            <div class="col-md-2">
+                @if (string.IsNullOrEmpty(offer.Offer_ImagePath))
+                {
+                    <img style="width:75%;height:180px" src="/images/NoImage.png" class="card-img-top" alt="...">
+                }
+                else
+                {
+                    <img style="width:75%;height:100%" src="/images/@offer.Offer_ImagePath" class="card-img-top" alt="...">
+                }
+            </div>
+
+            <div class="col-md-9">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        @offer.Offer_Code - @offer.Offer_Sport - Prix : @offer.Offer_UnitPrice €
+                    </h5>
+                    <p class="card-text">
+                        @* <b>Sport: </b>@offer.CategoryName <br /> *@
+                        <b>Info: </b>@offer.Offer_Description <br />
+                        @* <b>Prix: </b>@offer.UnitPrice *@
+                    </p>
+                    <button type="button" onclick="add(@offer.OfferId)" class="btn btn-primary">Ajouter au panier</button>
+                    <button type="button" onclick="add(@offer.OfferId)" class="btn btn-primary">Détail</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
-    </tbody>
-</table>
+
+
+
+
+
+@section Scripts {
+    <script>
+
+        async function add(offerId) {
+            //var usernameEl = document.getElementById("username");
+            // if (usernameEl == null) {
+            //     window.location.href = "/Identity/Account/Login";
+            // }
+            try {
+                var response = await fetch(`/Cart/AddItem?offerId=${offerId}`);
+                if (response.status == 200) {
+                    var result = await response.json();
+                    var cartCountEl = document.getElementById("cartCount");
+                    cartCountEl.innerHTML = result;
+                    // window.location.href = "#cartCount";
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+    </script>
+}
+
+
