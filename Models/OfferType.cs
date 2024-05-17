@@ -6,6 +6,10 @@ namespace Paris2024.Models;
 [Table("OfferType")]
 public class OfferType
 {
+    [Key]
+    public int OfferTypeId { get; set; }
+
+
     [Required]
     [MaxLength(20)]
     [Display(Name = "Type d'offres")]

@@ -7,7 +7,7 @@ namespace Paris2024.Models;
 public class Offer
 {
     [Key]
-    public int Id { get; set; }
+    public int OfferId { get; set; }
 
     [Required]
     [StringLength(100)]
