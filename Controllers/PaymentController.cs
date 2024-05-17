@@ -110,10 +110,11 @@ public class PaymentController : Controller
     },
             LineItems = lineItems,
             Mode = "payment",
-            SuccessUrl = $"{baseUrl}/Payment/success",
-            CancelUrl = $"{baseUrl}/Payment/cancel",
+            SuccessUrl = "https://indus82.com/Payment/success",
+            CancelUrl = "https://indus82.com/Payment/cancel",
             CustomerEmail = utilisateur.Email,
-
+            //SuccessUrl = $"{baseUrl}/Payment/success",
+            //CancelUrl = $"{baseUrl}/Payment/cancel",
         };
 
         var service = new SessionService();
