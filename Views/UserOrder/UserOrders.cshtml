@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Order>
+@{
+}
+
+<div class="text-capitalize text-center pb-2">
+    <h1>Mes Commandes</h1>
+</div>
+
+<div style="width:100%" class="mt-2">
+    <a asp-controller="offer" asp-action="Index" class="btn btn-link my-2">Retour</a>
+
+
+    @if (Model != null && Model.Count() > 0)
+    {
+
+        @foreach (var order in Model)
+        {
+            @if (order.OrderItem != null && order.OrderItem.Count > 0)
+            {
+                <hr />
+                <h5>Date : @order.Order_CreateDate.ToString("dd/MM/yyyy")</h5>
+
+
+                <table class="table table-striped">
+                    <tr>
+                        <th>Type</th>
+                        <th>Event</th>
+                        <th>Code offre</th>
+                        <th>Prix (P.U)</th>
+                        <th>Prix Total</th>
+                        <th>eBillet</th>
+                    </tr>
+
+                    @foreach (var item in order.OrderItem)
+                    {
+                        <tr>
+                            <td>@item.Offer.OfferType.OfferType_Name</td>
+                            <td>@item.Offer.Offer_Sport</td>
+                            <td>@item.Offer.Offer_Code</td>
+                            <td>@item.Offer.Offer_UnitPrice X @item.OrderItem_Quantity</td>
+                            <td> @(item.Offer.Offer_UnitPrice * item.OrderItem_Quantity) </td>
+                            <td><a asp-action="GetTicket" asp-route-TicketID="@item.OrderItem_QrCode">Voir mon billet</a></td>
+                        </tr>
+                    }
+                </table>
+
+                <h5>Total : @(order.OrderItem.Select(item => item.Offer.Offer_UnitPrice * item.OrderItem_Quantity).Sum()) € </h5>
+                <hr />
+            }
+        }
+
+
+    }
+    else
+    {
+        <h5>Pas de commandes</h5>
+    }
+</div>
+
+
+
+
