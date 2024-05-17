@@ -20,8 +20,4 @@
     <PackageReference Include="Stripe.net" Version="44.8.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\QrCode\" />
-  </ItemGroup>
-
 </Project>
