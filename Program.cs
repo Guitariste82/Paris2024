@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Paris2024.Data;
+using QRCoder;
 using Stripe;
 using FileService = Paris2024.Shared.FileService;
+using Paris2024.Helpers.QrCode;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,9 @@ builder.Services.AddTransient<IFileService, FileService>();
 
 builder.Services.AddTransient<IOfferRepository, OfferRepository>();
 builder.Services.AddTransient<ICartRepository, CartRepository>();
+
+builder.Services.AddTransient<IUserOrderRepository, UserOrderRepository>();
+builder.Services.AddScoped<IQrCodeGeneratorRepository, QrCodeGenerator>();
 
 //fh - add Cookies session to give an Id to cart
 builder.Services.AddSession(options =>
