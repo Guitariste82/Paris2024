@@ -2,7 +2,302 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" data-bs-theme="dark">
+    <div class="carousel-inner">
+        
+        <div class="carousel-item active " data-bs-interval=" 5000">
+            <img src="/Images/Carousel/paris2024.png" class="d-block w-100 carousel-image" alt="...">
+            <div class="carousel-caption d-none d-md-block roboto-regular">
+                <h5>First slide label</h5>
+                <p>Some representative placeholder content for the first slide.</p>
+            </div>
+        </div>
+        <div class="carousel-item" data-bs-interval=" 5000">
+            <img src="/Images/Carousel/rugby.jpg" class="d-block w-100 carousel-image" alt="...">
+            <div class="carousel-caption d-none d-md-block roboto-regular">
+                <h5>First slide label</h5>
+                <p>Some representative placeholder content for the first slide.</p>
+            </div>
+        </div>
+        <div class="carousel-item" data-bs-interval=" 5000">
+            <img src="/Images/Carousel/course.jpg" class="d-block w-100 carousel-image" alt="...">
+        </div>
+
+        <div class="carousel-item" data-bs-interval=" 5000">
+            <img src="/Images/Carousel/people.jpg" class="d-block w-100 carousel-image" alt="...">
+        </div>
+        <div class="carousel-item" data-bs-interval=" 5000">
+            <img src="/Images/Carousel/skate.jpg" class="d-block w-100 carousel-image" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+
+    <div class="text-center">
+        <h1 class="display-4">Welcome to Paris 2024</h1>
+        <h5>@ViewBag.SessionId</h5>
+    </div>
+
+
+    <img src="/images/paris2024.png" alt="Bootstrap" class="img-responsive">
+
+    <div>
+        <h2>Les Jeux</h2>
+        <p>
+            100 ans après les derniers Jeux d’été de Paris 1924,
+            les Jeux vont faire leur retour en France. Notre ambition
+            est immense : partager cette fête unique avec le plus
+            grand nombre et proposer les Jeux d’un nouveau modèle,
+            ouvert aux gens, en phase avec leurs aspirations,
+            notamment celles des jeunes générations.
+        </p>
+        <p>
+            Ce seront des Jeux festifs et spectaculaires, qui sortent
+            le sport des stades et l’emmènent là où on ne l’attend pas :
+            au pied de la Tour Eiffel et au Champ de Mars, dans
+            le Grand Palais, devant les Invalides, sur la place de
+            la Concorde, dans le Parc du Château de Versailles...
+            Jusqu’à la cérémonie d’ouverture que nous organiserons
+            au coeur de la ville, sur la Seine, pour la partager avec plus
+            de 600 000 spectateurs.
+        </p>
+        <p>
+            Ce seront des Jeux participatifs, avec pour la première fois
+            dans l’histoire olympique et paralympique des épreuves
+            pour le grand public, ainsi que des programmes pour
+            ouvrir les Jeux à tous les territoires, tous les acteurs
+            du sport et tous les citoyens qui souhaitent vivre cette
+            aventure hors norme.
+        </p>
+        <p>
+
+            Ce seront des Jeux responsables, où l’on utilise au
+            maximum les infrastructures existantes et où l’on ne
+            construit que des équipements dont la population locale
+            a vraiment besoin.
+        </p>
+        <p>
+            Ce seront des Jeux utiles et ouverts sur les enjeux de
+            société, qui mobilisent tous les décideurs politiques,
+            économiques, associatifs et culturels ainsi que l’ensemble
+            du mouvement sportif, pour apporter des changements
+            concrets dans la vie des gens notamment en mettant plus
+            de sport dans leur vie.
+        </p>
+        <p>
+            Tout est désormais en place pour donner vie à cette
+            ambition. Avec déjà 27 partenaires mondiaux et
+            domestiques à nos côtés, près de 20 000 entreprises
+            référencées pour prendre part aux marchés des Jeux,
+            plus de 2 300 collectivités engagées pour promouvoir
+            le sport et les valeurs olympiques et paralympiques, près
+            de 300 000 membres du Club Paris 2024, et l’ensemble
+            du mouvement sportif mobilisé, la France entière
+            se prépare à accueillir le monde.
+        </p>
+        <p>
+            TONY ESTANGUET
+            PRÉSIDENT DE PARIS 2024
+        </p>
+
+
+
+
+
+    </div>
+
+
+
+    <h2>Les épreuves</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 pb-4">
+        <div class="col">
+            <div class="card h-100">
+                <img src="/images/AreanChampDeMars.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Arena Champ-de-Mars</h5>
+                    <span class="badge rounded-pill bg-secondary">Judo</span> <span class="badge rounded-pill bg-secondary">Lutte</span>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="/images/ArenaBercy.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Arena Bercy</h5>
+                    <span class="badge rounded-pill bg-secondary">
+                        Basketball
+                    </span>
+                    <span class="badge rounded-pill bg-secondary">
+                        Gymnastique artistique
+                    </span>
+                    <span class="badge rounded-pill bg-secondary">
+                        Trampoline
+                    </span>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="/images/ArenaParisNord.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Arena Paris Nord</h5>
+                    <span class="badge rounded-pill bg-secondary">
+                        Boxe
+
+                    </span>
+                    <span class="badge rounded-pill bg-secondary">
+                        Pentathlon moderne
+                    </span>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 pb-4">
+        <div class="col">
+            <div class="card h-100">
+                <img src="/images/CentreAquatique.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Centre aquatique</h5>
+                    <span class="badge rounded-pill bg-secondary">
+                        Natation synchronisée
+                    </span>
+                    <span class="badge rounded-pill bg-secondary">
+                        Plongeon
+                    </span>
+                    <span class="badge rounded-pill bg-secondary">
+                        Water-Polo
+                    </span>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 ">
+                <img src="/images/ChateauVersailles.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Chateau de versailles</h5>
+                    <span class="badge rounded-pill bg-secondary">
+                        Pentathlon moderne
+                    </span>
+                    <span class="badge rounded-pill bg-secondary">
+                        Sports Équestres
+                    </span>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="/images/DefenseArena.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Paris La Défense Arena</h5>
+                    <span class="badge rounded-pill bg-secondary">
+                        Natation
+                    </span>
+                    <span class="badge rounded-pill bg-secondary">
+                        Water-polo
+                    </span>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 pb-4">
+        <div class="col">
+            <div class="card h-100">
+                <img src="/images/GrandPalais.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Grand Palais</h5>
+                    <span class="badge rounded-pill bg-secondary">
+                        Escrime
+                    </span>
+                    <span class="badge rounded-pill bg-secondary">
+                        Taekwondo
+                    </span>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 ">
+                <img src="/images/Invalides.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Invalides</h5>
+                    <span class="badge rounded-pill bg-secondary">
+                        Athlétisme
+                    </span>
+                    <span class="badge rounded-pill bg-secondary">
+                        Cyclisme sur route
+                    </span>
+                    <span class="badge rounded-pill bg-secondary">
+                        Tir à l'arc
+                    </span>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="/images/ParcDesPrinces.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Parc des Princes</h5>
+                    <span class="badge rounded-pill bg-secondary">
+                        Football
+                    </span>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
 </div>
