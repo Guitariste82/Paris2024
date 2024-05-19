@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,8 +12,10 @@ using Paris2024.Models;
 
 namespace Paris2024.Controllers;
 
+
 public class OfferController : Controller
 {
+    
     private readonly ILogger<HomeController> _logger;
     private readonly IOfferRepository _offerRepository;
     public OfferController(ILogger<HomeController> logger, IOfferRepository offerRepository)

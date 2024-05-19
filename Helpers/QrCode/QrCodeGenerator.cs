@@ -44,8 +44,9 @@ public class QrCodeGenerator : IQrCodeGeneratorRepository
     public string GetQrCodeToPngWithUrl(string url, string SecureKey)
     {
 
-        if ((!string.IsNullOrEmpty(url) && (!string.IsNullOrEmpty(SecureKey))))
-        {
+        //if ((!string.IsNullOrEmpty(url) && (!string.IsNullOrEmpty(SecureKey))))
+            if ((!string.IsNullOrEmpty(url) ))
+            {
             var myDomain = url;
             Payload payload = new Url(myDomain + SecureKey);
             QRCodeGenerator codeGenerator = new QRCodeGenerator();
@@ -56,7 +57,7 @@ public class QrCodeGenerator : IQrCodeGeneratorRepository
             //model.QRImageURL = "data:image/png;base64," + base64String;
             return base64String;
         }
-
+   
         return string.Empty;
     }
 

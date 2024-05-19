@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Paris2024.Controllers;
 
 //[Authorize]
+//[Authorize(Roles = nameof(Roles.Admin))]
 public class CartController : Controller
 {
     private readonly ICartRepository _cartRepo;

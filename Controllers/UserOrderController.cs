@@ -6,6 +6,7 @@ namespace Paris2024.Controllers;
 
 
 [Authorize]
+//[Authorize(Roles = nameof(Roles.Admin))]
 public class UserOrderController : Controller
 {
     private readonly IUserOrderRepository _userOrderRepo;
@@ -34,8 +35,12 @@ public class UserOrderController : Controller
         }
 
         string SecureKey = viewModel1.OrderItem_QrCode;
-        string url = "https://localhost:7158/UserOrder/GetTicket?TicketID=";
+        //string url = "https://localhost:7158/UserOrder/GetTicket?TicketID=";
+        //string url = "http://api.indus82.com/UserOrder/GetTicket?TicketID=";
+        string url = "http://api.indus82.com";
 
+        // FH - Just for test
+        SecureKey=string.Empty;
         string QrCodeImage = _qrCodeGeneratorRepo.GetQrCodeToPngWithUrl(url, SecureKey);
 
         model.QRImageURL = "data:image/png;base64," + QrCodeImage;
