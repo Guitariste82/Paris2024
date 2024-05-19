@@ -20,4 +20,10 @@
     <PackageReference Include="Stripe.net" Version="44.8.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Fonts\Wendy\" />
+    <Folder Include="wwwroot\Fonts\Woff\" />
+    <Folder Include="wwwroot\Fonts\Roboto\" />
+  </ItemGroup>
+
 </Project>

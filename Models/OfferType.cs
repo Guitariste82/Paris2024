@@ -15,6 +15,7 @@ public class OfferType
     [Display(Name = "Type d'offres")]
     public string OfferType_Name { get; set; }
 
+    [Display(Name = "Nbre")]
     public int OfferType_AllowedPerson { get; set; }
     public virtual ICollection<Offer> Offers { get; set; } // Modif + de flexibilité (type générique)
     //public List<Offer> Offers { get; set; }

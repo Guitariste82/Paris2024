@@ -11,13 +11,18 @@ public class OrderItem
     public int OrderItemId { get; set; }
 
     [Required]
+    [Display(Name = "Quantité")]
     public int OrderItem_Quantity { get; set; }
 
     [Required]
+    [Display(Name = "Prix unitaire")]
     public double OrderItem_UnitPrice { get; set; }
 
     [Required]
+    [Display(Name = "Key2")]
     public string OrderItem_Key2 { get; set; }
+
+    [Display(Name = "QrCode")]
     public string OrderItem_QrCode { get; set; }
 
     [Required]
