@@ -27,6 +27,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<IAdminOfferRepository, AdminOfferRepository>();
 builder.Services.AddTransient<IAdminOfferTypeRepository, AdminOfferTypeRepository>();
+builder.Services.AddTransient<IAdminSaleRepository, AdminSaleRepository>();
+
+
 builder.Services.AddTransient<IFileService, FileService>();
 
 builder.Services.AddTransient<IOfferRepository, OfferRepository>();

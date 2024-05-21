@@ -1,0 +1,30 @@
+﻿@model List<SalesPerOfferVM>
+@{
+    ViewData["Title"] = "Bilan des ventes par offres";
+}
+
+<h1>Synthèse des ventes</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Type d'offre</th>
+            <th>Sport</th>
+            <th>Code offre</th>
+            <th>Désignation</th>
+            <th>Nombre de ventes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.OfferType_Name</td>
+                <td>@item.Offer_Sport</td>
+                <td>@item.Offer_Code</td>
+                <td>@item.Offer_Designation</td>
+                <td>@item.SalesCount</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

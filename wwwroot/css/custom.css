@@ -27,10 +27,11 @@
 
 
 body {
-   /* font-family: Roboto;*/
+    /* font-family: Roboto;*/
     font-weight: 100;
     background-color: #F9F9F9;
     padding-top: 4.2rem;
+   
 }
 
 .SlideText {

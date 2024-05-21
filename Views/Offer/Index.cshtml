@@ -16,9 +16,9 @@
             <label class="visually-hidden" for="categoryId">Categories</label>
             <select class="form-select" id="offerTypeId" name="offerTypeId">
                 <option selected>All</option>
-                @foreach (var category in Model.OfferTypes)
+                @foreach (var offerType in Model.OfferTypes)
                 {
-                    <option selected="@(category.OfferTypeId == Model.OfferTypeId)" value="@category.OfferTypeId">@category.OfferType_Name</option>
+                    <option selected="@(offerType.OfferTypeId == Model.OfferTypeId)" value="@offerType.OfferTypeId">@offerType.OfferType_Name</option>
                 }
             </select>
         </div>
@@ -58,12 +58,9 @@
             <div class="col-md-9">
                 <div class="card-body">
                     <h5 class="card-title">
-                        @offer.Offer_Code - @offer.Offer_Sport - Prix : @offer.Offer_UnitPrice €
-                    </h5>
+                        @offer.Offer_Code - @offer.Offer_Sport - Prix : @offer.Offer_UnitPrice € - Type : @offer.OfferTypeId
                     <p class="card-text">
-                        @* <b>Sport: </b>@offer.CategoryName <br /> *@
                         <b>Info: </b>@offer.Offer_Description <br />
-                        @* <b>Prix: </b>@offer.UnitPrice *@
                     </p>
                     <button type="button" onclick="add(@offer.OfferId)" class="btn btn-primary">Ajouter au panier</button>
                     <button type="button" onclick="add(@offer.OfferId)" class="btn btn-primary">Détail</button>
