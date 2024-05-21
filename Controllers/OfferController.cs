@@ -12,7 +12,7 @@ using Paris2024.Models;
 
 namespace Paris2024.Controllers;
 
-
+[Authorize(Roles = nameof(Roles.Admin))]
 public class OfferController : Controller
 {
     

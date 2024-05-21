@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Sockets;
+using static System.Net.WebRequestMethods;
 
 namespace Paris2024.Controllers;
 
 
 [Authorize]
-//[Authorize(Roles = nameof(Roles.Admin))]
+[Authorize(Roles = nameof(Roles.Admin))]
 public class UserOrderController : Controller
 {
     private readonly IUserOrderRepository _userOrderRepo;
@@ -24,32 +25,30 @@ public class UserOrderController : Controller
         return View(orders);
     }
 
-    public async Task<IActionResult> GetTicket(string? TicketID)
+    public async Task<IActionResult> GetTicket(string? qrcodeKey)
     {
         QRCodeModel model = new QRCodeModel();
-        var viewModel1 = await _userOrderRepo.TicketsDetails(TicketID);
+        var TicketVM = await _userOrderRepo.TicketsDetails(qrcodeKey);
 
-        if (viewModel1 == null)
+        if (TicketVM == null)
         {
             return NotFound();
         }
 
-        string SecureKey = viewModel1.OrderItem_QrCode;
-        //string url = "https://localhost:7158/UserOrder/GetTicket?TicketID=";
-        //string url = "http://api.indus82.com/UserOrder/GetTicket?TicketID=";
-        string url = "http://api.indus82.com";
+        string SecureKey = TicketVM.OrderItem_QrCode;
+        //string url = "https://localhost:7158/UserOrder/GetTicket?qrcodeKey=";
+        //string url = "http://api.indus82.com/UserOrder/GetTicket?qrcodeKey=";
+        string url = "http://indus82.com/api/MyApi/GetTicket?qrcodeKey=";
+        //string url = "https://localhost:7210/api/MyApi/GetTicket?qrcodeKey=";
 
-        // FH - Just for test
-        SecureKey=string.Empty;
+
         string QrCodeImage = _qrCodeGeneratorRepo.GetQrCodeToPngWithUrl(url, SecureKey);
-
         model.QRImageURL = "data:image/png;base64," + QrCodeImage;
 
-        //https://localhost:7158/UserOrder/GetTicket?TicketID=ad7142e9-da94-4275-b975-0eade52091d75e562cd2-7dae-4e4b-8b22-e84455ee42b5
 
         var viewModel = new Ticket
         {
-            OrderDetail = viewModel1,
+            OrderDetail = TicketVM,
             QRCodeModel = model
         };
 

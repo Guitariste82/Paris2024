@@ -220,6 +220,7 @@ public class CartRepository : ICartRepository
                     OrderItem_UnitPrice = item.CartItem_UnitPrice,
                     OrderItem_Key2 = GeneratedKey2Guid,
                     OrderItem_QrCode = userId + GeneratedKey2Guid
+
                 };
                 _context.OrderItems.Add(orderItem);
 

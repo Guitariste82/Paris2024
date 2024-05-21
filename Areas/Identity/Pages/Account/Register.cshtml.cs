@@ -21,6 +21,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Paris2024.Areas.Identity.Pages.Account
 {
+    [Authorize(Roles = nameof(Roles.Admin))]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;

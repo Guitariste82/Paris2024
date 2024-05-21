@@ -49,16 +49,16 @@ public class UserOrderRepository : IUserOrderRepository
     }
 
 
-    public async Task<OrderItem> TicketsDetails(string? TicketID)
+    public async Task<OrderItem> TicketsDetails(string? qrcodeKey)
     {
-        if (TicketID == null)
+        if (qrcodeKey == null)
         {
             throw new Exception("User is not logged-in");
         }
 
         var OrderDetail = await _context.OrderItems
               .Include(s => s.Offer)
-              .FirstOrDefaultAsync(m => m.OrderItem_QrCode == TicketID);
+              .FirstOrDefaultAsync(m => m.OrderItem_QrCode == qrcodeKey);
 
         if (OrderDetail == null)
         {

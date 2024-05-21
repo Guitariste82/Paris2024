@@ -45,6 +45,12 @@ builder.Services.AddSession(options =>
 
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("StripeSettings:SecretKey").Get<string>();
 
+// Fh - Add Controller
+builder.Services.AddControllers();
+
+
+
+
 var app = builder.Build();
 
 // Fh - Seed Roles ans Admin profile
@@ -86,5 +92,10 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+
+// Fh - EndPoints
+app.MapControllers();
+//app.UseEndpoints(endpoints => { _ = endpoints.MapControllers(); });
 
 app.Run();
