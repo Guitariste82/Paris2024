@@ -10,10 +10,11 @@
     <h4>Filtres billets</h4>
 </div>
 
+
 <div class="my-2">
     <form asp-action="Index" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="col-12">
-            <label class="visually-hidden" for="categoryId">Categories</label>
+            <label class="visually-hidden" for="offerTypeId">Type d'offre'</label>
             <select class="form-select" id="offerTypeId" name="offerTypeId">
                 <option selected>All</option>
                 @foreach (var offerType in Model.OfferTypes)
@@ -32,43 +33,55 @@
         </div>
 
         <div class="col-12">
-            <button type="submit" class="btn btn-primary">Recherche</button>
+            <button type="submit" class="btn btn-outline-dark">Recherche</button>
             <a href="/Offer/Index" class="btn btn-dark">Init</a>
         </div>
     </form>
 </div>
 
 
-@foreach (var offer in Model.Offers)
-{
-    <div class="card mb-1 Regular shadow" style="width: 100%;">
-        <div class="row no-gutters">
+    <table class="table table-striped my-2">
+        <tr>
+          @*   <th>Type d'offre</th> *@
+            <th>Logo</th>
+            <th>Sport</th>
+            <th>Code offre</th>
 
-            <div class="col-md-2">
-                @if (string.IsNullOrEmpty(offer.Offer_ImagePath))
-                {
-                    <img style="width:75%;height:180px" src="/images/NoImage.png" class="card-img-top" alt="...">
-                }
-                else
-                {
-                    <img style="width:75%;height:100%" src="/images/@offer.Offer_ImagePath" class="card-img-top" alt="...">
-                }
-            </div>
+        <th>Prix</th>
+            <th>Description</th>
 
-            <div class="col-md-9">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        @offer.Offer_Code - @offer.Offer_Sport - Prix : @offer.Offer_UnitPrice € - Type : @offer.OfferTypeId
-                    <p class="card-text">
-                        <b>Info: </b>@offer.Offer_Description <br />
-                    </p>
-                    <button type="button" onclick="add(@offer.OfferId)" class="btn btn-primary">Ajouter au panier</button>
-                    <button type="button" onclick="add(@offer.OfferId)" class="btn btn-primary">Détail</button>
-                </div>
-            </div>
-        </div>
-    </div>
-}
+            <th>Action</th>
+        </tr>
+
+        @foreach (var offer in Model.Offers)
+            {
+                <tr>
+                    @* <td>@offer.OfferType.OfferType_Name</td> *@
+                    <td>
+                        @if (string.IsNullOrWhiteSpace(offer.Offer_ImagePath))
+                        {
+                            <img src="/Images/NoImage.png" style="width:80px;height:80px" alt="offer ImagePath" />
+                        }
+                        else
+                        {
+                            <img src="/images/@offer.Offer_ImagePath" style="width:50px;height:50px" alt="offer ImagePath" />
+                        }
+                    </td>
+
+                    <td>@offer.Offer_Sport</td>
+                    <td>@offer.Offer_Code</td>
+            <td>@offer.Offer_UnitPrice</td>
+                    <td>@offer.Offer_Description</td>
+                    
+                    <td>
+                <button type="button" onclick="add(@offer.OfferId)" class="btn btn-outline-dark justify-content-center mx-auto">Ajouter au panier</button>
+                <button type="button" onclick="add(@offer.OfferId)" class="btn btn-outline-secondary justify-content-center mx-auto">Détail</button>
+                @* btn btn-primary d-flex justify-content-center d-md-table mx-auto *@
+                    </td>
+                </tr>
+            }
+    </table>
+
 
 
 

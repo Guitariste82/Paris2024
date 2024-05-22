@@ -15,7 +15,6 @@ namespace Paris2024.Controllers
             _context = context;
             _adminSaleRepository = adminSaleRepository;
         }
-
         public IActionResult Index()
         {
             return View();
@@ -26,6 +25,7 @@ namespace Paris2024.Controllers
             var salesPerOfferVM = await _adminSaleRepository.GetSalesPerOffer();
             return View(salesPerOfferVM);
         }
+
 
     }
 }
