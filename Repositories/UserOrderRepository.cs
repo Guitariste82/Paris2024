@@ -8,10 +8,10 @@ public class UserOrderRepository : IUserOrderRepository
 {
     private readonly ApplicationDbContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<ApplicationUser> _userManager;
 
 
-    public UserOrderRepository(ApplicationDbContext context,UserManager<IdentityUser> userManager,IHttpContextAccessor httpContextAccessor)
+    public UserOrderRepository(ApplicationDbContext context,UserManager<ApplicationUser> userManager,IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
         _httpContextAccessor = httpContextAccessor;

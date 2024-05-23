@@ -7,11 +7,11 @@ namespace Paris2024.Repositories;
 public class CartRepository : ICartRepository
 {
     private readonly ApplicationDbContext _context;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<ApplicationUser> _userManager;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     public CartRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor,
-        UserManager<IdentityUser> userManager)
+        UserManager<ApplicationUser> userManager)
     {
         _context = context;
         _userManager = userManager;

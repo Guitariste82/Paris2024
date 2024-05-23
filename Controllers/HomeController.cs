@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace Paris2024.Controllers
 {
-    [Authorize(Roles = nameof(Roles.Admin))]
+    //[Authorize(Roles = nameof(Roles.Admin))]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

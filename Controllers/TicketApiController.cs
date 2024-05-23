@@ -12,9 +12,9 @@ public class TicketApiController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public TicketApiController(ApplicationDbContext context,  UserManager<IdentityUser> userManager)
+    public TicketApiController(ApplicationDbContext context,  UserManager<ApplicationUser> userManager)
     {
         _context = context;
        // _httpContextAccessor = httpContextAccessor;
