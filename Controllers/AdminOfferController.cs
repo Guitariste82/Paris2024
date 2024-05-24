@@ -100,7 +100,7 @@ public class AdminOfferController : Controller
         //}
         catch (Exception ex)
         {
-            TempData["errorMessage"] = "Erreur durant sauvegarde offre";
+            TempData["errorMessage"] = "Erreur durant sauvegarde offre" + ex.Message;
             return View(offerToAdd);
         }
     }
@@ -158,7 +158,6 @@ public class AdminOfferController : Controller
                 string[] allowedExtensions = [".jpeg", ".jpg", ".png"];
 
                 string imageName = await _fileService.SaveFile(offerToUpdate.OfferDto_ImageFile, allowedExtensions);
-                // hold the old image name. Because we will delete this image after updating the new
                 oldImage = offerToUpdate.OfferDto_ImagePath;
                 offerToUpdate.OfferDto_ImagePath = imageName;
             }
@@ -183,19 +182,10 @@ public class AdminOfferController : Controller
             TempData["successMessage"] = "Offre mise à jour avec succès";
             return RedirectToAction(nameof(Index));
         }
-        //catch (InvalidOperationException ex)
-        //{
-        //    TempData["errorMessage"] = ex.Message;
-        //    return View(offerToUpdate);
-        //}
-        //catch (FileNotFoundException ex)
-        //{
-        //    TempData["errorMessage"] = ex.Message;
-        //    return View(offerToUpdate);
-        //}
+  
         catch (Exception ex)
         {
-            TempData["errorMessage"] = "Erreur durant sauvegarde offre";
+            TempData["errorMessage"] = "Erreur durant sauvegarde offre" + ex.Message;
             return View(offerToUpdate);
         }
     }
@@ -218,17 +208,9 @@ public class AdminOfferController : Controller
                 }
             }
         }
-        //catch (InvalidOperationException ex)
-        //{
-        //    TempData["errorMessage"] = ex.Message;
-        //}
-        //catch (FileNotFoundException ex)
-        //{
-        //    TempData["errorMessage"] = ex.Message;
-        //}
         catch (Exception ex)
         {
-            TempData["errorMessage"] = "Erreur durant l'effacement de l'offre";
+            TempData["errorMessage"] = "Erreur durant l'effacement de l'offre " + ex.Message;
         }
         return RedirectToAction(nameof(Index));
     }

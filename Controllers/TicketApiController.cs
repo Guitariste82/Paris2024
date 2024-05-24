@@ -11,13 +11,11 @@ namespace Paris2024.Controllers;
 public class TicketApiController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
-    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly UserManager<ApplicationUser> _userManager;
 
     public TicketApiController(ApplicationDbContext context,  UserManager<ApplicationUser> userManager)
     {
         _context = context;
-       // _httpContextAccessor = httpContextAccessor;
         _userManager = userManager;
     }
 

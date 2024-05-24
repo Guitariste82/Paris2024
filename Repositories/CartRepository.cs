@@ -86,6 +86,7 @@ public class CartRepository : ICartRepository
         }
         catch (Exception ex)
         {
+            return 0;
         }
         var cartItemCount = await GetCartItemCount(CombinedCardId);
         return cartItemCount;
@@ -118,7 +119,7 @@ public class CartRepository : ICartRepository
         }
         catch (Exception ex)
         {
-
+            return 0;
         }
         var cartItemCount = await GetCartItemCount(cookieId);
         return cartItemCount;
@@ -177,8 +178,7 @@ public class CartRepository : ICartRepository
         using var transaction = _context.Database.BeginTransaction();
         try
         {
-            // logic
-            // move data from cartDetail to order and order detail then we will remove cart detail
+
             var userId = GetUserId();
             var cookieId = GetSessionId();
 

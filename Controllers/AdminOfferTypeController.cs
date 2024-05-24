@@ -50,7 +50,7 @@ namespace Paris2024.Controllers;
             }
             catch (Exception ex)
             {
-                TempData["errorMessage"] = "Type d'offre non ajoutée";
+                TempData["errorMessage"] = "Type d'offre non ajoutée " + ex.Message;
                 return View(offerType);
             }
         }

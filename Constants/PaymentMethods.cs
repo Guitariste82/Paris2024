@@ -3,8 +3,8 @@
     public enum PaymentMethods
     {
         Stripe = 1,
-        PayPal,
-        CB,
-        Mastercard
+        //PayPal,
+        //CB,
+        //Mastercard
     }
 }
