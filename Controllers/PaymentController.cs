@@ -56,7 +56,7 @@ public class PaymentController : Controller
     {
         var userId = GetUserId();
         if (string.IsNullOrEmpty(userId))
-            throw new UnauthorizedAccessException("User is not logged-in");
+            throw new UnauthorizedAccessException("Veuillez vous logger");
 
 
         var cookiePanierID = GetSessionId();
@@ -64,13 +64,13 @@ public class PaymentController : Controller
         var cart = await GetCart(cookiePanierID);
 
         if (cart is null)
-            throw new InvalidOperationException("Invalid cart");
+            throw new InvalidOperationException("Panier invalide");
 
         var cartDetail = _context.CartItems
                           .Where(a => a.CartId == cart.CardId).ToList();
 
         if (cartDetail.Count == 0)
-            throw new InvalidOperationException("Cart is empty");
+            throw new InvalidOperationException("Panier Vide");
 
         var products = _context.CartItems.Where(a => a.CartId == cart.CardId)
              .Include(s => s.Offer)
@@ -153,6 +153,16 @@ public class PaymentController : Controller
         var service = new SessionService();
         Session session = service.Get(TempData["StripeStatus"].ToString());
 
+
+        var utilisateur = await _context.Users.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
+        if (utilisateur == null)
+        {
+            //return RedirectToAction("Login", "AccountController");
+            return new LocalRedirectResult("/Identity/Account/Login");
+        }
+
+
+
         if (session.PaymentStatus == "paid")
         {
 
@@ -161,10 +171,10 @@ public class PaymentController : Controller
             CheckoutVM model = new CheckoutVM();
             model.Name = "success";
             model.Address = "15151";
-            model.Name = "ffgfg";
-            model.Email = "fabrice.g@gmail";
+            model.Name = utilisateur.UserName;
+            model.Email = utilisateur.Email;
             model.PaymentMethod = "Stripe";
-            model.MobileNumber = "336747474";
+            model.MobileNumber = utilisateur.PhoneNumber;
             return RedirectToAction("CheckoutPayment", "Cart", model);
         }
         else

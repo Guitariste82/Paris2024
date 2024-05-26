@@ -8,7 +8,7 @@
 
 <div style="width:100%" class="mt-2">
     <a asp-controller="offer" asp-action="Index" class="btn btn-link my-2">Retour</a>
-
+</div>
 
     @if (Model != null && Model.Count() > 0)
     {
@@ -40,7 +40,7 @@
                             <td>@item.Offer.Offer_UnitPrice X @item.OrderItem_Quantity</td>
                             <td> @(item.Offer.Offer_UnitPrice * item.OrderItem_Quantity) </td>
                             <td><a asp-action="GetTicket" asp-route-qrcodeKey="@item.OrderItem_QrCode">Voir mon billet</a></td>
-                           @*  <td><a asp-action="GetTicket" asp-route-TicketID="@item.OrderItem_QrCode">Voir mon billet</a></td> *@
+                            @*  <td><a asp-action="GetTicket" asp-route-TicketID="@item.OrderItem_QrCode">Voir mon billet</a></td> *@
                         </tr>
                     }
                 </table>
@@ -56,8 +56,3 @@
     {
         <h5>Pas de commandes</h5>
     }
-</div>
-
-
-
-

@@ -183,16 +183,16 @@ public class CartRepository : ICartRepository
             var cookieId = GetSessionId();
 
             if (string.IsNullOrEmpty(userId))
-                throw new UnauthorizedAccessException("User is not logged-in");
+                throw new UnauthorizedAccessException("Veuillez vous logger");
 
             var cart = await GetCart(cookieId);
             if (cart is null)
-                throw new InvalidOperationException("Invalid cart");
+                throw new InvalidOperationException("Panier invalide");
 
             var cartDetail = _context.CartItems
                                 .Where(a => a.CartId == cart.CardId).ToList();
             if (cartDetail.Count == 0)
-                throw new InvalidOperationException("Cart is empty");
+                throw new InvalidOperationException("Votre panier est vide");
 
 
             var order = new Order

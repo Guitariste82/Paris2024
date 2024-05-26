@@ -22,7 +22,7 @@ public class DbSeederOfferType
                 new OfferType
                 { OfferType_Name = "Duo", OfferType_AllowedPerson = 2 },
                 new OfferType
-                { OfferType_Name = "Familiale", OfferType_AllowedPerson = 4 }
+                { OfferType_Name = "Family", OfferType_AllowedPerson = 4 }
             );
 
             context.SaveChanges();

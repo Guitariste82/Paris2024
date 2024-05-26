@@ -33,7 +33,7 @@ public class UserOrderRepository : IUserOrderRepository
         {
             var userId = GetUserId();
             if (string.IsNullOrEmpty(userId))
-                throw new Exception("User is not logged-in");
+                throw new Exception("Utilisateur non connecté");
             orders = orders.Where(a => a.UserId == userId);
             return await orders.ToListAsync();
         }
