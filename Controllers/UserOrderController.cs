@@ -38,8 +38,8 @@ public class UserOrderController : Controller
         string SecureKey = TicketVM.OrderItem_QrCode;
         //string url = "https://localhost:7158/UserOrder/GetTicket?qrcodeKey=";
         //string url = "http://api.indus82.com/UserOrder/GetTicket?qrcodeKey=";
-        string url = "http://indus82.com/api/MyApi/GetTicket?qrcodeKey=";
-        //string url = "https://localhost:7210/api/MyApi/GetTicket?qrcodeKey=";
+        string url = "http://indus82.com/api/TicketApi/GetTicket?qrcodeKey=";
+        //string url = "https://localhost:7210/api/TicketApi/GetTicket?qrcodeKey=";
 
 
         string QrCodeImage = _qrCodeGeneratorRepo.GetQrCodeToPngWithUrl(url, SecureKey);
