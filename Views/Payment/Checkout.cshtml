@@ -5,44 +5,52 @@
 
 
 <div class="text-capitalize text-center pb-5">
-    <h1>Informations avant paiement</h1>
+    <h1>@ViewData["Title"]</h1>
 </div>
 
-<h5>Vérifier vos informations</h5>
-<form asp-controller="Payment" asp-action="CreateCheckoutSession">
-    @*   <form asp-controller="Stripe" asp-action="Checkout"> *@
-    @*  <div class="py-2">
-    <label asp-for="Name">Name*</label>
-    <input type="text" class="form-control" asp-for="Name" />
-    <span asp-validation-for="Name" class="text-danger"></span>
-    </div> *@
+<h3>Vérifier vos informations</h3>
 
-    <div class="py-2">
-        <label asp-for="Email">Email</label>
-        <input type="text" class="form-control" asp-for="Email" value="@ViewBag.email" />
-        <span asp-validation-for="Email" class="text-danger"></span>
+<div class="col-md-4">
+
+    <form asp-controller="Payment" asp-action="CreateCheckoutSession">
+
+        <div class="py-2">
+            <label asp-for="Email">Email</label>
+            <input type="text" class="form-control" asp-for="Email" value="@ViewBag.email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="py-2">
+            <label asp-for="MobileNumber">Numéro Mobile</label>
+            <input type="text" class="form-control" asp-for="MobileNumber" value="@ViewBag.MobileNumber" />
+            <span asp-validation-for="MobileNumber" class="text-danger"></span>
+        </div>
+
+        <div class="py-2">
+            <span class="mr-2">Méthode de paiement</span>
+            <select asp-for="PaymentMethod" class="form-control">
+                <option value="">Select Payment Method</option>
+                @foreach (var method in Enum.GetValues(typeof(Paris2024.Constants.PaymentMethods)))
+                {
+                    <option value="@method.ToString()">@method.ToString()</option>
+                }
+            </select>
+            <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+        </div>
+
+        <div class="py-2 pb-5">
+            <button type="submit" c class="btn btn-primary">Suivant</button>
+        </div>
+    </form>
+
+</div>
+
+<div class="col-md-4">
+    <div class="input-group">
+        <span class="input-group-text">Fake CB Code for Stripe</span>
+        <text class="form-control">4242 4242 4242 4242</text>
     </div>
+</div>
 
-    <div class="py-2">
-        <label asp-for="MobileNumber">Numéro Mobile</label>
-        <input type="text" class="form-control" asp-for="MobileNumber" value="@ViewBag.MobileNumber" />
-        <span asp-validation-for="MobileNumber" class="text-danger"></span>
-    </div>
 
-    <div class="py-2">
-        <span class="mr-2">Méthode de paiement</span>
-        <select asp-for="PaymentMethod" class="form-control">
-            <option value="">Select Payment Method</option>
-            @foreach (var method in Enum.GetValues(typeof(Paris2024.Constants.PaymentMethods)))
-            {
-                <option value="@method.ToString()">@method.ToString()</option>
-            }
-        </select>
-        <span asp-validation-for="PaymentMethod" class="text-danger"></span>
-    </div>
 
-    <div class="py-2">
-        <button type="submit" c class="btn btn-info">Next</button>
-
-    </div>
-</form>
