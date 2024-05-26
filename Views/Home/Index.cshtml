@@ -5,33 +5,28 @@
 
 <div class="text-center">
     <h1 class="Paris">Welcome to Paris 2024</h1>
+  @*    For debug *@
   @*   <h5>@ViewBag.SessionId</h5> *@
 </div>
-
-
-@* <div class="container-fluid">
-    <img src="/Images/Carousel/earth-1920.jpg" class="img-fluid" alt="...">
-</div> *@
-
 
 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" data-bs-theme="dark">
     <div class="carousel-inner">
 
-        <div class="carousel-item active" data-bs-interval=" 4000">
+        <div class="carousel-item active" data-bs-interval=" 2000">
             <img src="/Images/Carousel/earth-1920.jpg" class="d-block carousel-image img-fluid" alt="...">
             <div class="carousel-caption d-none d-md-block SlideText">
                 <h5></h5>
                 <p></p>
             </div>
         </div>
-        <div class="carousel-item" data-bs-interval=" 5000">
+        <div class="carousel-item" data-bs-interval=" 4000">
             <img src="/Images/Carousel/swimmers-1920.jpg" class="d-block carousel-image img-fluid" " alt="...">
             <div class="carousel-caption d-none d-md-block SlideText">
                 <h5></h5>
                 <p></p>
             </div>
         </div>
-        <div class="carousel-item" data-bs-interval=" 5000">
+        <div class="carousel-item" data-bs-interval=" 4000">
             <img src="/Images/Carousel/foot-1920.jpg" class="d-block carousel-image img-fluid" " alt="...">
             <div class="carousel-caption d-none d-md-block SlideText">
                 <h5></h5>
@@ -39,15 +34,14 @@
             </div>
         </div>
 
-        <div class="carousel-item" data-bs-interval=" 5000">
+        <div class="carousel-item" data-bs-interval=" 4000">
             <img src="/Images/Carousel/course-1920.jpg" class="d-block carousel-image img-fluid" " alt="...">
             <div class="carousel-caption d-none d-md-block SlideText">
                 <h5></h5>
                 <p></p>
             </div>
         </div>
-        <div class="carousel-item" data-bs-interval=" 5000">
-            @* <img src="/Images/Carousel/skate.jpg" class="d-block w-100 carousel-image" alt="..."> *@
+        <div class="carousel-item" data-bs-interval=" 4000">
             <img src="/Images/Carousel/velo-1920.jpg" class="d-block carousel-image img-fluid" alt="...">
             <div class="carousel-caption d-none d-md-block SlideText">
                 <h5></h5>
@@ -137,7 +131,8 @@
     <h2>Les épreuves</h2>
 
     <div class="row row-cols-1 row-cols-md-3 g-4 pb-4">
-    <div class="col">
+    
+        <div class="col">
         <div class="card h-100">
             <img src="/images/ParcDesPrinces.jpg" class="card-img-top" alt="...">
             <div class="card-body">
@@ -146,48 +141,37 @@
                     <a asp-controller="Offer" asp-action="Index" asp-route-searchString="Football">Football</a>
                 </span>
             </div>
-           @*  <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div> *@
         </div>
-    </div>
-
-    <div class="col">
-            <div class="card h-100">
-                <img src="/images/ArenaBercy.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Arena Bercy</h5>
+        </div>
+        <div class="col">
+        <div class="card h-100">
+            <img src="/images/ArenaBercy.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Arena Bercy</h5>
                 <span class="badge  bg-light-subtle text-bg-dark  rounded-pill">
                     <a asp-controller="Offer" asp-action="Index" asp-route-searchString="BasketBall">BasketBall</a>
                 </span>
-                    <span class="badge rounded-pill bg-secondary">
-                        Gymnastique artistique
-                    </span>
-                    <span class="badge rounded-pill bg-secondary">
-                        Trampoline
-                    </span>
-                </div>
-              @*   <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div> *@
+                <span class="badge rounded-pill bg-secondary">
+                    Gymnastique artistique
+                </span>
+                <span class="badge rounded-pill bg-secondary">
+                    Trampoline
+                </span>
             </div>
+        </div>
         </div>
         <div class="col">
             <div class="card h-100">
                 <img src="/images/ArenaParisNord.png" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Arena Paris Nord</h5>
-                    <span class="badge rounded-pill bg-secondary">
-                        Boxe
-
-                    </span>
+                <span class="badge  bg-light-subtle text-bg-dark  rounded-pill">
+                    <a asp-controller="Offer" asp-action="Index" asp-route-searchString="Boxe">Boxe</a>
+                </span>
                     <span class="badge rounded-pill bg-secondary">
                         Pentathlon moderne
                     </span>
                 </div>
-              @*   <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div> *@
             </div>
         </div>
     </div>
@@ -208,9 +192,6 @@
                         Water-Polo
                     </span>
                 </div>
-              @*   <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div> *@
             </div>
         </div>
         <div class="col">
@@ -225,9 +206,6 @@
                         Sports Équestres
                     </span>
                 </div>
-               @*  <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div> *@
             </div>
         </div>
         <div class="col">
@@ -241,9 +219,6 @@
                     <span class="badge rounded-pill bg-secondary">
                         Water-polo
                     </span>
-                </div>
-               @*  <div class="card-footer">
-                    <smal *@l class="text-muted">Last updated 3 mins ago</small>
                 </div>
             </div>
         </div>
@@ -262,9 +237,6 @@
                         Taekwondo
                     </span>
                 </div>
-               @*  <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div> *@
             </div>
         </div>
         <div class="col">
@@ -282,30 +254,15 @@
                         Tir à l'arc
                     </span>
                 </div>
-              @*   <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div> *@
             </div>
         </div>
-    <div class="col">
-        <div class="card h-100">
-            <img src="/images/AreanChampDeMars.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Arena Champ-de-Mars</h5>
-                <span class="badge rounded-pill bg-secondary">Judo</span> <span class="badge rounded-pill bg-secondary">Lutte</span>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
+        <div class="col">
+            <div class="card h-100">
+                <img src="/images/AreanChampDeMars.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Arena Champ-de-Mars</h5>
+                    <span class="badge rounded-pill bg-secondary">Judo</span> <span class="badge rounded-pill bg-secondary">Lutte</span>
+                </div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-</div>

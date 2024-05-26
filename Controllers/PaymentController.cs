@@ -60,7 +60,6 @@ public class PaymentController : Controller
 
 
         var cookiePanierID = GetSessionId();
-
         var cart = await GetCart(cookiePanierID);
 
         if (cart is null)

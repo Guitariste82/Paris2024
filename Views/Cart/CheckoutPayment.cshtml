@@ -3,12 +3,15 @@
     ViewData["Title"] = "CheckoutPayment";
 }
 
-<div class="text-center">
-    <h1>Commande passée avec succès</h1>
+<div class="text-center col-md-6">
 
+
+    <div class="alert alert-success" role="alert">
+        Commande passée avec succès
+    </div>
     @*  <h3>N° Commande @Model.Name </h3> *@
 
-    <div>
+    <div class="my-5">
         <a class="btn btn-success" asp-controller="UserOrder" asp-action="UserOrders">Voir mes commandes</a>
     </div>
 
