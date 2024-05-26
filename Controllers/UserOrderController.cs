@@ -7,7 +7,7 @@ namespace Paris2024.Controllers;
 
 
 [Authorize]
-[Authorize(Roles = nameof(Roles.Admin))]
+//[Authorize(Roles = nameof(Roles.Admin))]
 public class UserOrderController : Controller
 {
     private readonly IUserOrderRepository _userOrderRepo;

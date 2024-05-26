@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -7,6 +8,7 @@ using System.Diagnostics;
 
 namespace Paris2024.Controllers;
 
+[Authorize]
 public class PaymentController : Controller
 {
     private readonly StripeSettings _stripeSettings;
@@ -52,7 +54,6 @@ public class PaymentController : Controller
 
     public async Task<IActionResult> CreateCheckoutSessionAsync(decimal amount)
     {
-
         var userId = GetUserId();
         if (string.IsNullOrEmpty(userId))
             throw new UnauthorizedAccessException("User is not logged-in");
@@ -170,7 +171,6 @@ public class PaymentController : Controller
         {
             return View("Cancel");
         }
-
 
     }
     public IActionResult Cancel()

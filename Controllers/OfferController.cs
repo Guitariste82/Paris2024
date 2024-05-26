@@ -12,10 +12,9 @@ using Paris2024.Models;
 
 namespace Paris2024.Controllers;
 
-[Authorize(Roles = nameof(Roles.Admin))]
+//[Authorize(Roles = nameof(Roles.Admin))]
 public class OfferController : Controller
 {
-    
     private readonly ILogger<HomeController> _logger;
     private readonly IOfferRepository _offerRepository;
     public OfferController(ILogger<HomeController> logger, IOfferRepository offerRepository)

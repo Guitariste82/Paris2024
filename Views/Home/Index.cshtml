@@ -123,7 +123,7 @@
         </p>
         <p>
             TONY ESTANGUET
-            PRÉSIDENT DE PARIS 2024
+            PRÉSIDENT DE PARIS 2024 (source site officiel)
         </p>
 
 
@@ -137,26 +137,29 @@
     <h2>Les épreuves</h2>
 
     <div class="row row-cols-1 row-cols-md-3 g-4 pb-4">
-        <div class="col">
-            <div class="card h-100">
-                <img src="/images/AreanChampDeMars.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Arena Champ-de-Mars</h5>
-                    <span class="badge rounded-pill bg-secondary">Judo</span> <span class="badge rounded-pill bg-secondary">Lutte</span>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
+    <div class="col">
+        <div class="card h-100">
+            <img src="/images/ParcDesPrinces.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Parc des Princes</h5>
+                <span class="badge  bg-light-subtle text-bg-dark  rounded-pill">
+                    <a asp-controller="Offer" asp-action="Index" asp-route-searchString="Football">Football</a>
+                </span>
             </div>
+           @*  <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div> *@
         </div>
-        <div class="col">
+    </div>
+
+    <div class="col">
             <div class="card h-100">
                 <img src="/images/ArenaBercy.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Arena Bercy</h5>
-                    <span class="badge rounded-pill bg-secondary">
-                        Basketball
-                    </span>
+                <span class="badge  bg-light-subtle text-bg-dark  rounded-pill">
+                    <a asp-controller="Offer" asp-action="Index" asp-route-searchString="BasketBall">BasketBall</a>
+                </span>
                     <span class="badge rounded-pill bg-secondary">
                         Gymnastique artistique
                     </span>
@@ -164,9 +167,9 @@
                         Trampoline
                     </span>
                 </div>
-                <div class="card-footer">
+              @*   <div class="card-footer">
                     <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
+                </div> *@
             </div>
         </div>
         <div class="col">
@@ -182,9 +185,9 @@
                         Pentathlon moderne
                     </span>
                 </div>
-                <div class="card-footer">
+              @*   <div class="card-footer">
                     <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
+                </div> *@
             </div>
         </div>
     </div>
@@ -205,9 +208,9 @@
                         Water-Polo
                     </span>
                 </div>
-                <div class="card-footer">
+              @*   <div class="card-footer">
                     <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
+                </div> *@
             </div>
         </div>
         <div class="col">
@@ -222,9 +225,9 @@
                         Sports Équestres
                     </span>
                 </div>
-                <div class="card-footer">
+               @*  <div class="card-footer">
                     <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
+                </div> *@
             </div>
         </div>
         <div class="col">
@@ -239,8 +242,8 @@
                         Water-polo
                     </span>
                 </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
+               @*  <div class="card-footer">
+                    <smal *@l class="text-muted">Last updated 3 mins ago</small>
                 </div>
             </div>
         </div>
@@ -259,9 +262,9 @@
                         Taekwondo
                     </span>
                 </div>
-                <div class="card-footer">
+               @*  <div class="card-footer">
                     <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
+                </div> *@
             </div>
         </div>
         <div class="col">
@@ -279,26 +282,24 @@
                         Tir à l'arc
                     </span>
                 </div>
-                <div class="card-footer">
+              @*   <div class="card-footer">
                     <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
+                </div> *@
             </div>
         </div>
-        <div class="col">
-            <div class="card h-100">
-                <img src="/images/ParcDesPrinces.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Parc des Princes</h5>
-                    <span class="badge rounded-pill bg-secondary">
-                        Football
-                    </span>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
+    <div class="col">
+        <div class="card h-100">
+            <img src="/images/AreanChampDeMars.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Arena Champ-de-Mars</h5>
+                <span class="badge rounded-pill bg-secondary">Judo</span> <span class="badge rounded-pill bg-secondary">Lutte</span>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
             </div>
         </div>
-   
+    </div>
+
 
 
 
