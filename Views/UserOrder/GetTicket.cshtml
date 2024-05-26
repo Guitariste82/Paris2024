@@ -54,10 +54,12 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
 
             <img height="200" width="200" src="@Model.QRCodeModel.QRImageURL" />
-            @*   <a href="@Model.QRCodeModel.QRImageURL" download="@Model.Sale.Offer.Description.Replace(' ', '_')" +".png">Télécharger le QRCode</a> *@
-            <a href="@Model.QRCodeModel.QRImageURL" download="toto.png">Télécharger mon QRCode</a>
+            <a href="@Model.QRCodeModel.QRImageURL" download="@Model.OrderDetail.Offer.Offer_Code" +".png">Télécharger mon eBillet</a>
         </div>
     </div>
 }
 
-<a asp-action="UserOrders">Retour sur liste de mes commandes</a>
+<div class="pb-5">
+    <a asp-action="UserOrders">Retour sur liste de mes commandes</a>
+</div>
+
