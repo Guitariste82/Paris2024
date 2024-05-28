@@ -37,6 +37,18 @@ public class OfferController : Controller
         return View(offerModel);
     }
 
+
+    public async Task<IActionResult> Details(int OfferId = 0)
+    {
+        var offer = await _offerRepository.GetOfferById(OfferId);
+        if (offer == null)
+        {
+            TempData["errorMessage"] = $"L'offre avec l'id: {OfferId} non trouvé";
+            return RedirectToAction(nameof(Index));
+        }
+        return View(offer);
+    }
+
     public IActionResult Privacy()
     {
         return View();
@@ -47,4 +59,5 @@ public class OfferController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
 }

@@ -39,7 +39,7 @@
         </div>
 
         <div class="py-2 pb-5">
-            <button type="submit" c class="btn btn-primary">Suivant</button>
+            <button type="submit" class="btn btn-primary disabled" id="btnSubmit">Suivant</button>
         </div>
     </form>
 
@@ -51,6 +51,25 @@
         <text class="form-control">4242 4242 4242 4242</text>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var btnSubmit = document.getElementById('btnSubmit');
+        var selectedPayment = document.querySelector("select[name='PaymentMethod']");
+
+        function updateBtn() {
+            if (selectedPayment.value == "Stripe") {
+                btnSubmit.classList.remove('disabled');
+                btnSubmit.classList.add('enabled');
+            } else {
+                btnSubmit.classList.remove('enabled');
+                btnSubmit.classList.add('disabled');
+            }
+        }
+        selectedPayment.addEventListener('change', updateBtn);
+        updateBtn();
+    });
+</script>
 
 
 

@@ -4,5 +4,9 @@
     {
         Task<IEnumerable<Offer>> GetOffers(int offerTypeId = 0, string searchString = "");
         Task<IEnumerable<OfferType>> OfferTypes();
+
+        Task<Offer> GetOfferById(int offerId = 0);
+
+
     }
 }

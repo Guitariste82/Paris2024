@@ -4,12 +4,22 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+
+<div class="text-capitalize text-center pb-2">
+    <h1>Detail Billet sélectionné</h1>
+</div>
+
 
 <div>
-    <h4>Offer</h4>
+    <h4>Ticket</h4>
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            Type d'offre
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OfferType.OfferType_Name)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Offer_Code)
         </dt>
@@ -28,27 +38,39 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Offer_Description)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Offer_ImagePath)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Offer_ImagePath)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Offer_UnitPrice)
+            <dt class = "col-sm-2">
+           Prix unitaire
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Offer_UnitPrice)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OfferType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OfferType.OfferType_Name)
-        </dd>
+
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.OfferId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="m-5">
+    <button type="button" onclick="add(@Model.OfferId)" class="btn btn-outline-dark justify-content-center mx-auto">Ajouter au panier</button>
+
 </div>
+
+<div>
+    <a asp-action="Index">Retour liste des billets disponibles</a>
+</div>
+
+@section Scripts {
+    <script>
+
+        async function add(offerId) {
+            try {
+                var response = await fetch(`/Cart/AddItem?offerId=${offerId}`);
+                if (response.status == 200) {
+                    var result = await response.json();
+                    var cartCountEl = document.getElementById("cartCount");
+                    cartCountEl.innerHTML = result;
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+    </script>
+}

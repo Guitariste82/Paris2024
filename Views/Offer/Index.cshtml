@@ -22,6 +22,13 @@
                     <option selected="@(offerType.OfferTypeId == Model.OfferTypeId)" value="@offerType.OfferTypeId">@offerType.OfferType_Name</option>
                 }
             </select>
+         @*    <select class="form-select" id="offerSport" name="offerSport">
+                <option selected>All</option>
+                @foreach (var offer in Model.Offers.Select(o => o.Offer_Sport).Distinct())
+                {
+                    <option value="@offer">@offer</option>
+                }
+            </select> *@
         </div>
 
         <div class="col-12">
@@ -70,38 +77,27 @@
 
                     <td>@offer.Offer_Sport</td>
                     <td>@offer.Offer_Code</td>
-            <td>@offer.Offer_UnitPrice</td>
+                    <td>@offer.Offer_UnitPrice</td>
                     <td>@offer.Offer_Description</td>
                     
                     <td>
                 <button type="button" onclick="add(@offer.OfferId)" class="btn btn-outline-dark justify-content-center mx-auto">Ajouter au panier</button>
-                <button type="button" onclick="add(@offer.OfferId)" class="btn btn-outline-secondary justify-content-center mx-auto">Détail</button>
-                @* btn btn-primary d-flex justify-content-center d-md-table mx-auto *@
+                <a asp-action="Details" asp-controller="Offer" asp-route-OfferId="@offer.OfferId" class="btn btn-outline-primary justify-content-center mx-auto">Détail</a>
                     </td>
                 </tr>
             }
     </table>
 
-
-
-
-
-
 @section Scripts {
     <script>
 
         async function add(offerId) {
-            //var usernameEl = document.getElementById("username");
-            // if (usernameEl == null) {
-            //     window.location.href = "/Identity/Account/Login";
-            // }
             try {
                 var response = await fetch(`/Cart/AddItem?offerId=${offerId}`);
                 if (response.status == 200) {
                     var result = await response.json();
                     var cartCountEl = document.getElementById("cartCount");
                     cartCountEl.innerHTML = result;
-                    // window.location.href = "#cartCount";
                 }
             }
             catch (err) {

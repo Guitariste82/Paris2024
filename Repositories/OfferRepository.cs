@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Paris2024.Models;
 
 namespace Paris2024.Repositories;
 
@@ -46,4 +47,18 @@ public class OfferRepository : IOfferRepository
 
         return await offersQuery.ToListAsync();
     }
+
+    public async Task<Offer> GetOfferById(int offerId = 0)
+    {
+        var offerQuery = _context.Offers
+        .Include(offer => offer.OfferType)
+        .FirstOrDefaultAsync(offer => offer.OfferId == offerId);
+
+        return await offerQuery;
+    }
+
+  
+
+
+
 }
