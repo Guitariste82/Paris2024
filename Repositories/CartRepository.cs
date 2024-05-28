@@ -194,6 +194,9 @@ public class CartRepository : ICartRepository
             if (cartDetail.Count == 0)
                 throw new InvalidOperationException("Votre panier est vide");
 
+            if (model.MobileNumber == null){
+                model.MobileNumber =string.Empty;
+            }
 
             var order = new Order
             {
