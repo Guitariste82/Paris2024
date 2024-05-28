@@ -94,7 +94,6 @@ public class PaymentController : Controller
                 {
                     Name = "Billet jeux olympics",
                     Description = product.Offer.Offer_Description
-                    //Images = new List<string> { product.ImageUrl }
                 }
             },
             Quantity = product.CartItem_Quantity
@@ -110,10 +109,10 @@ public class PaymentController : Controller
     },
             LineItems = lineItems,
             Mode = "payment",
-            SuccessUrl = "https://localhost:7210/Payment/success",
-            CancelUrl = "https://localhost:7210/Payment/cancel",
-            //SuccessUrl = "https://indus82.com/Payment/success",
-            //CancelUrl = "https://indus82.com/Payment/cancel",
+            //SuccessUrl = "https://localhost:7210/Payment/success",
+            //CancelUrl = "https://localhost:7210/Payment/cancel",
+            SuccessUrl = "https://indus82.com/Payment/success",
+            CancelUrl = "https://indus82.com/Payment/cancel",
             CustomerEmail = utilisateur.Email,
             //SuccessUrl = $"{baseUrl}/Payment/success",
             //CancelUrl = $"{baseUrl}/Payment/cancel",

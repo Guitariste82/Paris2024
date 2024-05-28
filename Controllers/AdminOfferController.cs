@@ -76,7 +76,7 @@ public class AdminOfferController : Controller
             // manual mapping of OfferDTO -> Offer
             Offer offer = new()
             {
-                OfferId = offerToAdd.OfferDto_Id,
+                OfferId = offerToAdd.OfferDto_OfferId,
                 Offer_Code = offerToAdd.OfferDto_OfferCode,
                 Offer_Sport = offerToAdd.OfferDto_Sport,
                 Offer_Description = offerToAdd.OfferDto_Description,
@@ -117,15 +117,16 @@ public class AdminOfferController : Controller
         {
             Text = category.OfferType_Name,
             Value = category.OfferTypeId.ToString(),
-            Selected = category.OfferTypeId == offer.OfferId
+            Selected = category.OfferTypeId == offer.OfferTypeId
         });
         OfferDto offerToUpdate = new()
         {
             OfferTypeList = categorySelectList,
+            OfferDto_OfferId = offer.OfferId,
             OfferDto_OfferCode = offer.Offer_Code,
             OfferDto_Sport = offer.Offer_Sport,
             OfferDto_Description = offer.Offer_Description,
-            OfferDto_OfferTypeId = offer.OfferId,
+            OfferDto_OfferTypeId = offer.OfferTypeId,
             OfferDto_UnitPrice = offer.Offer_UnitPrice,
             OfferDto_ImagePath = offer.Offer_ImagePath
         };
@@ -164,7 +165,7 @@ public class AdminOfferController : Controller
             // manual mapping of offerDTO -> Offer
             Offer offer = new()
             {
-                OfferId = offerToUpdate.OfferDto_Id,
+                OfferId = offerToUpdate.OfferDto_OfferId,
                 Offer_Code = offerToUpdate.OfferDto_OfferCode,
                 Offer_Sport = offerToUpdate.OfferDto_Sport,
                 Offer_Description = offerToUpdate.OfferDto_Description,

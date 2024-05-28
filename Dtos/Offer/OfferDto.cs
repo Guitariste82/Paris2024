@@ -5,7 +5,7 @@ namespace Paris2024.Dtos.Offer;
 
 public class OfferDto
 {
-    public int OfferDto_Id { get; set; }
+    public int OfferDto_OfferId { get; set; }
 
     [Required]
     [MaxLength(255)]
