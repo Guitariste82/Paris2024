@@ -30,6 +30,9 @@ public class Offer
     [Display(Name = "Prix")]
     public double Offer_UnitPrice { get; set; }
 
+       [Display(Name = "Date")]
+    public DateTime Offer_EventDate { get; set; }
+
     [Required]
     [ForeignKey(nameof(OfferType))]
     public int OfferTypeId { get; set; }

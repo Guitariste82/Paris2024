@@ -32,6 +32,7 @@ public class OfferRepository : IOfferRepository
                 Offer_ImagePath = offer.Offer_ImagePath,
                 Offer_UnitPrice = offer.Offer_UnitPrice,
                 OfferTypeId = offer.OfferTypeId,
+                Offer_EventDate=offer.Offer_EventDate
                 //Quantity = 50
             });
 

@@ -11,7 +11,9 @@
 </div>
 
 
-<div class="my-2">
+<div class="container-fluid">
+
+<div class="my-2 container-sm">
     <form asp-action="Index" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="col-12">
             <label class="visually-hidden" for="offerTypeId">Type d'offre'</label>
@@ -49,21 +51,22 @@
 
     <table class="table table-striped my-2">
         <tr>
-          @*   <th>Type d'offre</th> *@
+       @*     <th>Type d'offre</th>  *@
             <th>Logo</th>
+            <th>Date</th>
             <th>Sport</th>
             <th>Code offre</th>
-
         <th>Prix</th>
-            <th>Description</th>
+          @*   <th>Description</th> *@
 
-            <th>Action</th>
+            <th>Panier</th>
+            <th>Détails</th>
         </tr>
 
         @foreach (var offer in Model.Offers)
             {
                 <tr>
-                    @* <td>@offer.OfferType.OfferType_Name</td> *@
+              @*       <td>@offer.OfferType.OfferType_Name</td>  *@
                     <td>
                         @if (string.IsNullOrWhiteSpace(offer.Offer_ImagePath))
                         {
@@ -74,20 +77,18 @@
                             <img src="/images/@offer.Offer_ImagePath" style="width:50px;height:50px" alt="offer ImagePath" />
                         }
                     </td>
-
+                    <td>@offer.Offer_EventDate</td>
                     <td>@offer.Offer_Sport</td>
                     <td>@offer.Offer_Code</td>
                     <td>@offer.Offer_UnitPrice</td>
-                    <td>@offer.Offer_Description</td>
-                    
-                    <td>
-                <button type="button" onclick="add(@offer.OfferId)" class="btn btn-outline-dark justify-content-center mx-auto">Ajouter au panier</button>
-                <a asp-action="Details" asp-controller="Offer" asp-route-OfferId="@offer.OfferId" class="btn btn-outline-primary justify-content-center mx-auto">Détail</a>
-                    </td>
+                   @*  <td>@offer.Offer_Description</td> *@
+                    <td><button type="button" onclick="add(@offer.OfferId)" class="btn btn-outline-dark justify-content-center mx-auto">Ajouter</button> </td>
+                    <td><a asp-action="Details" asp-controller="Offer" asp-route-OfferId="@offer.OfferId" class="btn btn-outline-primary justify-content-center mx-auto">Détail</a></td>
                 </tr>
             }
     </table>
 
+</div>
 @section Scripts {
     <script>
 

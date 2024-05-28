@@ -22,6 +22,8 @@ public class OfferDto
     [Required]
     public double OfferDto_UnitPrice { get; set; }
 
+    public DateTime OfferDto_EventDate { get; set; }
+
     [Required]
     public int OfferDto_OfferTypeId { get; set; }
     public IFormFile? OfferDto_ImageFile { get; set; }

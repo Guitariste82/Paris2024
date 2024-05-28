@@ -25,7 +25,7 @@
                 <th>Sport</th>
                 <th>Code offre</th>
                 <th>Description</th>
-
+                <th>Date</th>
                 <th>Prix</th>
                 <th>Action</th>
             </tr>
@@ -48,10 +48,13 @@
                     <td>@offer.Offer_Sport</td>
                     <td>@offer.Offer_Code</td>
                     <td>@offer.Offer_Description</td>
+                    <td>@offer.Offer_EventDate</td>
                     <td>@offer.Offer_UnitPrice</td>
                     <td>
                         <a asp-action="UpdateOffer" asp-controller="AdminOffer" asp-route-id="@offer.OfferId" class="btn btn-success">Editer</a>
-                        <a asp-action="DeleteOffer" asp-controller="AdminOffer" asp-route-id="@offer.OfferId" class="btn btn-danger" onclick="return window.confirm('Souhaitez vous supprimer cette offre ?')">Supprimer</a>
+                      </td>
+                    <td>
+                          <a asp-action="DeleteOffer" asp-controller="AdminOffer" asp-route-id="@offer.OfferId" class="btn btn-danger" onclick="return window.confirm('Souhaitez vous supprimer cette offre ?')">Del</a>
                     </td>
                 </tr>
             }

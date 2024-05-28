@@ -82,7 +82,8 @@ public class AdminOfferController : Controller
                 Offer_Description = offerToAdd.OfferDto_Description,
                 Offer_ImagePath = offerToAdd.OfferDto_ImagePath,
                 OfferTypeId = offerToAdd.OfferDto_OfferTypeId,
-                Offer_UnitPrice = offerToAdd.OfferDto_UnitPrice
+                Offer_UnitPrice = offerToAdd.OfferDto_UnitPrice,
+                Offer_EventDate = offerToAdd.OfferDto_EventDate,
             };
             await _offerRepo.AddOffer(offer);
             TempData["successMessage"] = "Offre ajoutée avec succès";
@@ -119,7 +120,9 @@ public class AdminOfferController : Controller
             OfferDto_Description = offer.Offer_Description,
             OfferDto_OfferTypeId = offer.OfferTypeId,
             OfferDto_UnitPrice = offer.Offer_UnitPrice,
-            OfferDto_ImagePath = offer.Offer_ImagePath
+            OfferDto_ImagePath = offer.Offer_ImagePath,
+            OfferDto_EventDate = offer.Offer_EventDate
+           
         };
         return View(offerToUpdate);
     }
@@ -162,7 +165,8 @@ public class AdminOfferController : Controller
                 Offer_Description = offerToUpdate.OfferDto_Description,
                 OfferTypeId = offerToUpdate.OfferDto_OfferTypeId,
                 Offer_UnitPrice = offerToUpdate.OfferDto_UnitPrice,
-                Offer_ImagePath = offerToUpdate.OfferDto_ImagePath
+                Offer_ImagePath = offerToUpdate.OfferDto_ImagePath,
+                Offer_EventDate = offerToUpdate.OfferDto_EventDate
             };
 
             await _offerRepo.UpdateOffer(offer);
