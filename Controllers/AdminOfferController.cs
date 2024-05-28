@@ -73,7 +73,7 @@ public class AdminOfferController : Controller
                 string imageName = await _fileService.SaveFile(offerToAdd.OfferDto_ImageFile, allowedExtensions);
                 offerToAdd.OfferDto_ImagePath = imageName;
             }
-            // manual mapping of OfferDTO -> Offer
+
             Offer offer = new()
             {
                 OfferId = offerToAdd.OfferDto_OfferId,
@@ -88,16 +88,7 @@ public class AdminOfferController : Controller
             TempData["successMessage"] = "Offre ajoutée avec succès";
             return RedirectToAction(nameof(AddOffer));
         }
-        //catch (InvalidOperationException ex)
-        //{
-        //    TempData["errorMessage"]= ex.Message;
-        //    return View(offerToAdd);
-        //}
-        //catch (FileNotFoundException ex)
-        //{
-        //    TempData["errorMessage"] = ex.Message;
-        //    return View(offerToAdd);
-        //}
+
         catch (Exception ex)
         {
             TempData["errorMessage"] = "Erreur durant sauvegarde offre" + ex.Message;
@@ -162,7 +153,7 @@ public class AdminOfferController : Controller
                 oldImage = offerToUpdate.OfferDto_ImagePath;
                 offerToUpdate.OfferDto_ImagePath = imageName;
             }
-            // manual mapping of offerDTO -> Offer
+
             Offer offer = new()
             {
                 OfferId = offerToUpdate.OfferDto_OfferId,
@@ -175,7 +166,6 @@ public class AdminOfferController : Controller
             };
 
             await _offerRepo.UpdateOffer(offer);
-            // if image is updated, then delete it from the folder too
             if (!string.IsNullOrWhiteSpace(oldImage))
             {
                 _fileService.DeleteFile(oldImage);
