@@ -16,7 +16,7 @@
 
         <div class="py-2">
             <label asp-for="Email">Email</label>
-            <input type="text" class="form-control" asp-for="Email" value="@ViewBag.email" />
+            <input type="text" class="form-control" asp-for="Email" value="@ViewBag.email" disabled />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
@@ -29,7 +29,7 @@
         <div class="py-2">
             <span class="mr-2">Méthode de paiement</span>
             <select asp-for="PaymentMethod" class="form-control">
-                <option value="">Select Payment Method</option>
+                <option value="">Choisir mode de paiement</option>
                 @foreach (var method in Enum.GetValues(typeof(Paris2024.Constants.PaymentMethods)))
                 {
                     <option value="@method.ToString()">@method.ToString()</option>

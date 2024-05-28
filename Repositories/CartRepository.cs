@@ -100,17 +100,17 @@ public class CartRepository : ICartRepository
         string cookieId = GetSessionId();
         try
         {
-            if (string.IsNullOrEmpty(userId))
-                throw new UnauthorizedAccessException("user is not logged-in");
+            //if (string.IsNullOrEmpty(userId))
+            //    throw new UnauthorizedAccessException("user is not logged-in");
 
             var cart = await GetCart(cookieId);
             if (cart is null)
-                throw new InvalidOperationException("Invalid cart");
+                throw new InvalidOperationException("Panier invalide");
             // cart detail section
             var cartItem = _context.CartItems
                               .FirstOrDefault(a => a.CartId == cart.CardId && a.OfferId == offerId);
             if (cartItem is null)
-                throw new InvalidOperationException("Not items in cart");
+                throw new InvalidOperationException("Pas d'articles dans le panier");
             else if (cartItem.CartItem_Quantity == 1)
                 _context.CartItems.Remove(cartItem);
             else
