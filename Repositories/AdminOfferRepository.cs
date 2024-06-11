@@ -34,5 +34,5 @@ public class AdminOfferRepository : IAdminOfferRepository
             await _context.SaveChangesAsync();
         }
 
-
+  
 }
